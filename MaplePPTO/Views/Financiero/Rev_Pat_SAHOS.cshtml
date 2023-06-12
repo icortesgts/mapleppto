@@ -1,0 +1,226 @@
+﻿@model MaplePPTO.ViewModels.ParametroViewModel
+
+<h1 class="m-0">Financial Reports</h1>
+<div class="card" id="app">
+    @*<div class="card-header">
+            <h3 class="card-title">DataTable with default features</h3>
+        </div>*@
+    <!-- /.card-header -->
+    <div class="card-body">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "mainForm" }))
+        {
+            @Html.HiddenFor(model => model.showMonths, new { @id = "hdnShowMonth" })
+            <div class="row">
+
+                <div class="col-12 col-md-3">
+                    <label>Report Type</label>
+                    @Html.DropDownListFor(model => model.TipoReporteId, Model.selectLisReportTypes, new { @class = "form-control", @id = "ddlBudgets" })
+
+                </div>
+                <div class="col-12  col-md-3">
+                    <label>Budget</label>
+                    @Html.DropDownListFor(model => model.PresupuestoId, Model.selectListBudgets, new { @class = "form-control", @id = "ddlBudgets" })
+                </div>
+                <div class="col-12  col-md-3">
+                    <label>Escenarie</label>
+                    @Html.DropDownListFor(model => model.EscenarioId, Model.selectListEscenaries, new { @class = "form-control", @id = "ddlEscenaries" })
+                </div>
+
+            </div>
+            <div class="row mt-4">
+                <div class="col-12 col-md-6" style="text-align:end">
+                    <button type="submit" class="btn btn-outline-primary">FILTER REPORT</button>
+                </div>
+            </div>
+        }
+        <p>
+
+
+        </p>
+        <hr />
+
+        <div class="table-responsive">
+
+            <table style="font-size:12px" class="table table-sm table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>CIDUDAD</th>
+                        <th>CLIENTE</th>
+                        <th>CONCEPTO</th>
+                        @if (Model.listHeader != null)
+                        {
+
+                            foreach (var item in Model.listHeader)
+                            {
+                                <th class="text-uppercase text-nowrap">
+                                    @item
+                                </th>
+                            }
+
+
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.ListReports != null)
+                    {
+                        foreach (var item in Model.ListReports)
+                        {
+                        <tr>
+                            <td class="text-nowrap" style="min-width:190px">@item.ciudad</td>
+                            <td class="text-nowrap" style="min-width:190px">@item.Cliente</td>
+                            <td class="text-nowrap" style="min-width:190px">@item.concepto</td>
+
+                            <td class="text-right">@Math.Round(double.Parse(item.mes1), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes2), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes3), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes4), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes5), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes6), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes7), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes8), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes9), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes10), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes11), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes12), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes13), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes14), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes15), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes16), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes17), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes18), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes19), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes20), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes21), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes22), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes23), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes24), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes25), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes26), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes27), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes28), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes29), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes30), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes31), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes32), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes33), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes34), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes35), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes36), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes37), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes38), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes39), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes40), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes41), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes42), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes43), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes44), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes45), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes46), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes47), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes48), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes49), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes50), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes51), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes52), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes53), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes54), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes55), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes56), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes57), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes58), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes59), 0)</td>
+                            <td class="text-right">@Math.Round(double.Parse(item.mes60), 0)</td>
+                        </tr>
+
+                        }
+                    }
+                </tbody>
+
+            </table>
+
+
+
+
+        </div>
+
+
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+
+@section scripts {
+
+    <!-- DataTables  & Plugins -->
+    <script src="~/Content/template/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/template/plugins/jszip/jszip.min.js"></script>
+    <script src="~/Content/template/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/Content/template/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/Content/template/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+    <script>
+        @*const lastShowMonthValue = '@Model.showMonths';
+
+        const totalColumns = '@(Model.listHeader == null ? 0 : Model.listHeader.Count)'
+        const mesesFaltantes = '@Model.mesesFaltantesAnioBase';
+        //=============================>
+        //-codigo usando librerias Jquery
+        $(function () {
+
+
+            //$('#ddlBudgets').on('change', function () {
+            //    $('#mainForm').submit();
+            //});
+
+            //$('#ddlEscenaries').on('change', function () {
+            //    $('#mainForm').submit();
+            //});
+
+
+            var table = $("#example2").DataTable({
+                "responsive": false,
+                "lengthChange": false,
+                "autoWidth": false,
+                "scrollX": true,
+                "scrollY": 500,
+                "paging": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print"],
+
+            });
+            table.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+
+            GenColumsShow(lastShowMonthValue);
+
+            $('.rdnShowMonth').on('click', function (event) {
+                console.log("", event.target);
+                $('#hdnShowMonth').val(event.target.value);
+                GenColumsShow(event.target.value);
+            });
+
+            function GenColumsShow(totalColumShow) {
+                let colNumber = (parseInt(totalColumShow) || 12) + 7 + (parseInt(mesesFaltantes) || 0);
+
+                let total = (parseInt(totalColumns) || 0) +7;
+                let colums = [...Array(total).keys()].filter(x => (x > (colNumber - 1)));
+
+                table.columns().visible(true);
+                table.columns(colums).visible(false);
+            }
+
+        });*@
+
+        //-fin codigo usando librerias Jquery
+        //<=============================
+
+
+    </script>
+
+}

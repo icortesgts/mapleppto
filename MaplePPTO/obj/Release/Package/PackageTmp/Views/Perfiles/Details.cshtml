@@ -1,0 +1,66 @@
+﻿@model MaplePPTO.Models.Perfil
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Perfil</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_crea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_crea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_modifica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_modifica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usuario_crea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario_crea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usuario_modifica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario_modifica)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,966 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MAPLE.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Archivos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tabla" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="llave" Type="bigint" Nullable="false" />
+    <Property Name="Archivo" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="fecha_crea" Type="datetime" />
+    <Property Name="fecha_modifica" Type="datetime" />
+    <Property Name="usuario_crea" Type="bigint" />
+    <Property Name="usuario_modifica" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Auditoria">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_usuario" Type="bigint" Nullable="false" />
+    <Property Name="Tabla" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Llave" Type="bigint" Nullable="false" />
+    <Property Name="fecha" Type="datetime" Nullable="false" />
+    <Property Name="Original" Type="text" Nullable="false" />
+    <Property Name="Nuevo" Type="text" Nullable="false" />
+    <Property Name="Operacion" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="ipmac" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="fecha_crea" Type="datetime" />
+    <Property Name="fecha_modifica" Type="datetime" />
+    <Property Name="usuario_crea" Type="bigint" />
+    <Property Name="usuario_modifica" Type="bigint" />
+    <Property Name="id_cliente" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Banco">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="int" Nullable="false" />
+    <Property Name="Entidad" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="fecha_crea" Type="datetime" />
+    <Property Name="fecha_modifica" Type="datetime" />
+    <Property Name="usuario_crea" Type="bigint" />
+    <Property Name="usuario_modifica" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="tipo_persona" Type="varchar" MaxLength="50" />
+    <Property Name="Tipo_ID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Identificacion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DV" Type="int" />
+    <Property Name="Direccion" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Telfono" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="emailR" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="id_localizacion" Type="bigint" Nullable="false" />
+    <Property Name="Tipo" Type="varchar" MaxLength="200" />
+    <Property Name="Prospecto" Type="bit" />
+    <Property Name="Bloqueado" Type="bit" />
+    <Property Name="fecha_crea" Type="datetime" />
+    <Property Name="fecha_modifica" Type="datetime" />
+    <Property Name="usuario_crea" Type="bigint" />
+    <Property Name="usuario_modifica" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Concepto">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="200" />
+    <Property Name="Entrada" Type="bit" Nullable="false" />
+    <Property Name="TipoPpto" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="id_fase" Type="bigint" />
+    <Property Name="orden" Type="bigint" />
+  </EntityType>
+  <EntityType Name="ConceptoPpto">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="orden" Type="bigint" />
+    <Property Name="id_Escenarioppto" Type="bigint" />
+    <Property Name="id_concepto" Type="bigint" />
+    <Property Name="id_cliente" Type="bigint" />
+    <Property Name="id_contrato" Type="bigint" />
+    <Property Name="id_localizacion" Type="bigint" />
+    <Property Name="id_contratofase" Type="bigint" />
+    <Property Name="id_fase" Type="bigint" />
+    <Property Name="id_escenario" Type="bigint" />
+    <Property Name="id_ppto" Type="bigint" />
+    <Property Name="id_contratolocalizacion" Type="bigint" />
+    <Property Name="Mes" Type="int" Nullable="false" />
+    <Property Name="Vigencia" Type="int" Nullable="false" />
+    <Property Name="valor" Type="float" Nullable="false" />
+    <Property Name="fecha_creacion" Type="datetime" Nullable="false" />
+    <Property Name="fecha_modificacion" Type="datetime" />
+    <Property Name="usu_crea" Type="bigint" Nullable="false" />
+    <Property Name="usu_modifica" Type="bigint" />
+    <Property Name="tipoInformacion" Type="smallint" />
+  </EntityType>
+  <EntityType Name="ConceptosPorTipoReporte">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tipoReporteId" Type="int" />
+    <Property Name="conceptoId" Type="bigint" />
+    <Property Name="Grupo" Type="varchar" MaxLength="200" />
+    <Property Name="subGrupo" Type="int" />
+    <Property Name="orden" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Contrato">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Contrato" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="FecIni" Type="datetime" Nullable="false" />
+    <Property Name="FecFin" Type="datetime" Nullable="false" />
+    <Property Name="id_cliente" Type="bigint" Nullable="false" />
+    <Property Name="Prospecto" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ContratoFase">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_contrato" Type="bigint" Nullable="false" />
+    <Property Name="id_fase" Type="bigint" Nullable="false" />
+    <Property Name="Condiciones" Type="varchar" MaxLength="2000" />
+    <Property Name="TarifaPAciente" Type="money" />
+    <Property Name="NroPAcientes" Type="bigint" />
+  </EntityType>
+  <EntityType Name="ContratoLocalizacion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_contrato" Type="bigint" Nullable="false" />
+    <Property Name="id_localizacion" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Escenario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="2000" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EscenarioPpto">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_escenario" Type="bigint" Nullable="false" />
+    <Property Name="id_presupuesto" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Fase">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="2000" />
+  </EntityType>
+  <EntityType Name="InsumosCext">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="200" />
+    <Property Name="presentacion" Type="varchar" MaxLength="200" />
+    <Property Name="mExperto" Type="float" />
+    <Property Name="somnlogo" Type="float" />
+    <Property Name="tRespiratorio" Type="float" />
+    <Property Name="nutricion" Type="float" />
+    <Property Name="psicologia" Type="float" />
+    <Property Name="fecha_crea" Type="smalldatetime" />
+    <Property Name="fecha_modifica" Type="smalldatetime" />
+    <Property Name="usuario_crea" Type="int" />
+    <Property Name="usuario_modifica" Type="int" />
+  </EntityType>
+  <EntityType Name="InsumosDx">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="200" />
+    <Property Name="presentacion" Type="varchar" MaxLength="200" />
+    <Property Name="basl_leves" Type="float" />
+    <Property Name="titulacion" Type="float" />
+    <Property Name="nd" Type="float" />
+    <Property Name="poligrafia" Type="float" />
+    <Property Name="autoTitutacion" Type="float" />
+    <Property Name="nivel2" Type="float" />
+    <Property Name="fecha_crea" Type="smalldatetime" />
+    <Property Name="fecha_modifica" Type="smalldatetime" />
+    <Property Name="usuario_crea" Type="int" />
+    <Property Name="usuario_modifica" Type="int" />
+  </EntityType>
+  <EntityType Name="Localizacion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="coddpto" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="NomDpto" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="ISODpto" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CodMun" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="NomMun" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="id_pais" Type="bigint" Nullable="false" />
+    <Property Name="Operacion" Type="bit" />
+    <Property Name="fecha_crea" Type="datetime" />
+    <Property Name="fecha_modifica" Type="datetime" />
+    <Property Name="usuario_crea" Type="bigint" />
+    <Property Name="usuario_modifica" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Pais">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="codISO" Type="varchar" MaxLength="10" />
+    <Property Name="fecha_crea" Type="datetime" />
+    <Property Name="fecha_modifica" Type="datetime" />
+    <Property Name="usuario_crea" Type="bigint" />
+    <Property Name="usuario_modifica" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Parametro">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="ValorStr" Type="varchar" MaxLength="200" />
+    <Property Name="ValorNum" Type="float" />
+    <Property Name="ValorDate" Type="datetime" />
+    <Property Name="fecha_crea" Type="datetime" />
+    <Property Name="fecha_modifica" Type="datetime" />
+    <Property Name="usuario_crea" Type="bigint" />
+    <Property Name="usuario_modifica" Type="bigint" />
+    <Property Name="id_fase" Type="bigint" />
+    <Property Name="id_cliente" Type="bigint" />
+    <Property Name="id_escenario" Type="bigint" />
+    <Property Name="id_ppto" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Perfil">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Descripcion" Type="text" />
+    <Property Name="fecha_crea" Type="datetime" />
+    <Property Name="fecha_modifica" Type="datetime" />
+    <Property Name="usuario_crea" Type="bigint" />
+    <Property Name="usuario_modifica" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Ppto">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="AInicial" Type="int" Nullable="false" />
+    <Property Name="AFinal" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'MAPLE.dbo.RESULPPTO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="RESULPPTO">
+    <Key>
+      <PropertyRef Name="Ppto" />
+      <PropertyRef Name="Escenario" />
+      <PropertyRef Name="concepto" />
+      <PropertyRef Name="ciudad" />
+      <PropertyRef Name="departamento" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Contrato" />
+      <PropertyRef Name="Fase" />
+    </Key>
+    <Property Name="Ppto" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Escenario" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="id_concepto" Type="bigint" />
+    <Property Name="id_localizacion" Type="bigint" />
+    <Property Name="id_cliente" Type="bigint" />
+    <Property Name="id_ppto" Type="bigint" />
+    <Property Name="id_escenario" Type="bigint" />
+    <Property Name="id_contrato" Type="bigint" />
+    <Property Name="id_fase" Type="bigint" />
+    <Property Name="concepto" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="concept" Type="varchar" MaxLength="200" />
+    <Property Name="ciudad" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="departamento" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Cliente" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Contrato" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Fase" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="tipoinformacion" Type="smallint" />
+    <Property Name="mesant6" Type="float" />
+    <Property Name="mesant5" Type="float" />
+    <Property Name="mesant4" Type="float" />
+    <Property Name="mesant3" Type="float" />
+    <Property Name="mesant2" Type="float" />
+    <Property Name="mesant1" Type="float" />
+    <Property Name="mes1" Type="float" />
+    <Property Name="mes2" Type="float" />
+    <Property Name="mes3" Type="float" />
+    <Property Name="mes4" Type="float" />
+    <Property Name="mes5" Type="float" />
+    <Property Name="mes6" Type="float" />
+    <Property Name="mes7" Type="float" />
+    <Property Name="mes8" Type="float" />
+    <Property Name="mes9" Type="float" />
+    <Property Name="mes10" Type="float" />
+    <Property Name="mes11" Type="float" />
+    <Property Name="mes12" Type="float" />
+    <Property Name="mes13" Type="float" />
+    <Property Name="mes14" Type="float" />
+    <Property Name="mes15" Type="float" />
+    <Property Name="mes16" Type="float" />
+    <Property Name="mes17" Type="float" />
+    <Property Name="mes18" Type="float" />
+    <Property Name="mes19" Type="float" />
+    <Property Name="mes20" Type="float" />
+    <Property Name="mes21" Type="float" />
+    <Property Name="mes22" Type="float" />
+    <Property Name="mes23" Type="float" />
+    <Property Name="mes24" Type="float" />
+    <Property Name="mes25" Type="float" />
+    <Property Name="mes26" Type="float" />
+    <Property Name="mes27" Type="float" />
+    <Property Name="mes28" Type="float" />
+    <Property Name="mes29" Type="float" />
+    <Property Name="mes30" Type="float" />
+    <Property Name="mes31" Type="float" />
+    <Property Name="mes32" Type="float" />
+    <Property Name="mes33" Type="float" />
+    <Property Name="mes34" Type="float" />
+    <Property Name="mes35" Type="float" />
+    <Property Name="mes36" Type="float" />
+    <Property Name="mes37" Type="float" />
+    <Property Name="mes38" Type="float" />
+    <Property Name="mes39" Type="float" />
+    <Property Name="mes40" Type="float" />
+    <Property Name="mes41" Type="float" />
+    <Property Name="mes42" Type="float" />
+    <Property Name="mes43" Type="float" />
+    <Property Name="mes44" Type="float" />
+    <Property Name="mes45" Type="float" />
+    <Property Name="mes46" Type="float" />
+    <Property Name="mes47" Type="float" />
+    <Property Name="mes48" Type="float" />
+    <Property Name="mes49" Type="float" />
+    <Property Name="mes50" Type="float" />
+    <Property Name="mes51" Type="float" />
+    <Property Name="mes52" Type="float" />
+    <Property Name="mes53" Type="float" />
+    <Property Name="mes54" Type="float" />
+    <Property Name="mes55" Type="float" />
+    <Property Name="mes56" Type="float" />
+    <Property Name="mes57" Type="float" />
+    <Property Name="mes58" Type="float" />
+    <Property Name="mes59" Type="float" />
+    <Property Name="mes60" Type="float" />
+    <Property Name="anio" Type="int" />
+    <Property Name="mes" Type="int" />
+    <Property Name="grupo" Type="int" />
+    <Property Name="orden" Type="bigint" />
+  </EntityType>
+  <EntityType Name="TipoCargaExcel">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="100" />
+    <Property Name="esOperativo" Type="bit" />
+  </EntityType>
+  <EntityType Name="TipoReporte">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="400" />
+    <Property Name="fecha_crea" Type="smalldatetime" />
+    <Property Name="fecha_modifica" Type="smalldatetime" />
+    <Property Name="usuario_crea" Type="int" />
+    <Property Name="usuario_modifica" Type="int" />
+    <Property Name="esFinanciero" Type="bit" />
+    <Property Name="deshabilitado" Type="bit" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="login" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varbinary" MaxLength="50" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Bloqueado" Type="bit" Nullable="false" />
+    <Property Name="Fecha_Password" Type="datetime" Nullable="false" />
+    <Property Name="Fecha_Creacion" Type="datetime" Nullable="false" />
+    <Property Name="Fecha_Modificacion" Type="datetime" Nullable="false" />
+    <Property Name="id_perfil" Type="bigint" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Token" Type="varchar" MaxLength="255" />
+    <Property Name="fecha_crea" Type="datetime" />
+    <Property Name="fecha_modifica" Type="datetime" />
+    <Property Name="usuario_crea" Type="bigint" />
+    <Property Name="usuario_modifica" Type="bigint" />
+  </EntityType>
+  <Association Name="FK__Conceptos__conce__22751F6C">
+    <End Role="Concepto" Type="Self.Concepto" Multiplicity="0..1" />
+    <End Role="ConceptosPorTipoReporte" Type="Self.ConceptosPorTipoReporte" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Concepto">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptosPorTipoReporte">
+        <PropertyRef Name="conceptoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Conceptos__tipoR__2180FB33">
+    <End Role="TipoReporte" Type="Self.TipoReporte" Multiplicity="0..1" />
+    <End Role="ConceptosPorTipoReporte" Type="Self.ConceptosPorTipoReporte" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoReporte">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptosPorTipoReporte">
+        <PropertyRef Name="tipoReporteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Clientes_Localizacion">
+    <End Role="Localizacion" Type="Self.Localizacion" Multiplicity="1" />
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Localizacion">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="id_localizacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Concepto_Fase">
+    <End Role="Fase" Type="Self.Fase" Multiplicity="0..1" />
+    <End Role="Concepto" Type="Self.Concepto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fase">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Concepto">
+        <PropertyRef Name="id_fase" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_Concepto">
+    <End Role="Concepto" Type="Self.Concepto" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Concepto">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_concepto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_Contrato">
+    <End Role="Contrato" Type="Self.Contrato" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contrato">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_contrato" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_ContratoFase">
+    <End Role="ContratoFase" Type="Self.ContratoFase" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContratoFase">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_contratofase" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_ContratoLocalizacion">
+    <End Role="ContratoLocalizacion" Type="Self.ContratoLocalizacion" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContratoLocalizacion">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_contratolocalizacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_Escenario">
+    <End Role="Escenario" Type="Self.Escenario" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Escenario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_escenario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_EscenarioPpto">
+    <End Role="EscenarioPpto" Type="Self.EscenarioPpto" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EscenarioPpto">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_Escenarioppto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_Fase">
+    <End Role="Fase" Type="Self.Fase" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fase">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_fase" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_Localizacion">
+    <End Role="Localizacion" Type="Self.Localizacion" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Localizacion">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_localizacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_Ppto">
+    <End Role="Ppto" Type="Self.Ppto" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ppto">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_ppto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Contrato_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Contrato" Type="Self.Contrato" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Contrato">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContratoFase_Contrato">
+    <End Role="Contrato" Type="Self.Contrato" Multiplicity="1" />
+    <End Role="ContratoFase" Type="Self.ContratoFase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contrato">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ContratoFase">
+        <PropertyRef Name="id_contrato" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContratoFase_Fase">
+    <End Role="Fase" Type="Self.Fase" Multiplicity="1" />
+    <End Role="ContratoFase" Type="Self.ContratoFase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fase">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ContratoFase">
+        <PropertyRef Name="id_fase" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContratoLocalizacion_Contrato">
+    <End Role="Contrato" Type="Self.Contrato" Multiplicity="1" />
+    <End Role="ContratoLocalizacion" Type="Self.ContratoLocalizacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contrato">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ContratoLocalizacion">
+        <PropertyRef Name="id_contrato" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContratoLocalizacion_Localizacion">
+    <End Role="Localizacion" Type="Self.Localizacion" Multiplicity="1" />
+    <End Role="ContratoLocalizacion" Type="Self.ContratoLocalizacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Localizacion">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ContratoLocalizacion">
+        <PropertyRef Name="id_localizacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EscenarioPpto_Escenario">
+    <End Role="Escenario" Type="Self.Escenario" Multiplicity="1" />
+    <End Role="EscenarioPpto" Type="Self.EscenarioPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Escenario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="EscenarioPpto">
+        <PropertyRef Name="id_escenario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EscenarioPpto_Ppto">
+    <End Role="Ppto" Type="Self.Ppto" Multiplicity="1" />
+    <End Role="EscenarioPpto" Type="Self.EscenarioPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ppto">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="EscenarioPpto">
+        <PropertyRef Name="id_presupuesto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Localizacion_Pais">
+    <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+    <End Role="Localizacion" Type="Self.Localizacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pais">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Localizacion">
+        <PropertyRef Name="id_pais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Parametro_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="Parametro" Type="Self.Parametro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Parametro">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Parametro_Escenario">
+    <End Role="Escenario" Type="Self.Escenario" Multiplicity="0..1" />
+    <End Role="Parametro" Type="Self.Parametro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Escenario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Parametro">
+        <PropertyRef Name="id_escenario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Parametro_Fase">
+    <End Role="Fase" Type="Self.Fase" Multiplicity="0..1" />
+    <End Role="Parametro" Type="Self.Parametro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fase">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Parametro">
+        <PropertyRef Name="id_fase" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Parametro_Ppto">
+    <End Role="Ppto" Type="Self.Ppto" Multiplicity="0..1" />
+    <End Role="Parametro" Type="Self.Parametro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ppto">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Parametro">
+        <PropertyRef Name="id_ppto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuarios_Perfil">
+    <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfil">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="id_perfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MAPLEStoreContainer">
+    <EntitySet Name="Archivos" EntityType="Self.Archivos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Auditoria" EntityType="Self.Auditoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Banco" EntityType="Self.Banco" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Concepto" EntityType="Self.Concepto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ConceptoPpto" EntityType="Self.ConceptoPpto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ConceptosPorTipoReporte" EntityType="Self.ConceptosPorTipoReporte" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contrato" EntityType="Self.Contrato" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContratoFase" EntityType="Self.ContratoFase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContratoLocalizacion" EntityType="Self.ContratoLocalizacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Escenario" EntityType="Self.Escenario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EscenarioPpto" EntityType="Self.EscenarioPpto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Fase" EntityType="Self.Fase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InsumosCext" EntityType="Self.InsumosCext" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InsumosDx" EntityType="Self.InsumosDx" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Localizacion" EntityType="Self.Localizacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Parametro" EntityType="Self.Parametro" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ppto" EntityType="Self.Ppto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoCargaExcel" EntityType="Self.TipoCargaExcel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoReporte" EntityType="Self.TipoReporte" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RESULPPTO" EntityType="Self.RESULPPTO" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [RESULPPTO].[Ppto] AS [Ppto], 
+    [RESULPPTO].[Escenario] AS [Escenario], 
+    [RESULPPTO].[id_concepto] AS [id_concepto], 
+    [RESULPPTO].[id_localizacion] AS [id_localizacion], 
+    [RESULPPTO].[id_cliente] AS [id_cliente], 
+    [RESULPPTO].[id_ppto] AS [id_ppto], 
+    [RESULPPTO].[id_escenario] AS [id_escenario], 
+    [RESULPPTO].[id_contrato] AS [id_contrato], 
+    [RESULPPTO].[id_fase] AS [id_fase], 
+    [RESULPPTO].[concepto] AS [concepto], 
+    [RESULPPTO].[concept] AS [concept], 
+    [RESULPPTO].[ciudad] AS [ciudad], 
+    [RESULPPTO].[departamento] AS [departamento], 
+    [RESULPPTO].[Cliente] AS [Cliente], 
+    [RESULPPTO].[Contrato] AS [Contrato], 
+    [RESULPPTO].[Fase] AS [Fase], 
+    [RESULPPTO].[tipoinformacion] AS [tipoinformacion], 
+    [RESULPPTO].[mesant6] AS [mesant6], 
+    [RESULPPTO].[mesant5] AS [mesant5], 
+    [RESULPPTO].[mesant4] AS [mesant4], 
+    [RESULPPTO].[mesant3] AS [mesant3], 
+    [RESULPPTO].[mesant2] AS [mesant2], 
+    [RESULPPTO].[mesant1] AS [mesant1], 
+    [RESULPPTO].[mes1] AS [mes1], 
+    [RESULPPTO].[mes2] AS [mes2], 
+    [RESULPPTO].[mes3] AS [mes3], 
+    [RESULPPTO].[mes4] AS [mes4], 
+    [RESULPPTO].[mes5] AS [mes5], 
+    [RESULPPTO].[mes6] AS [mes6], 
+    [RESULPPTO].[mes7] AS [mes7], 
+    [RESULPPTO].[mes8] AS [mes8], 
+    [RESULPPTO].[mes9] AS [mes9], 
+    [RESULPPTO].[mes10] AS [mes10], 
+    [RESULPPTO].[mes11] AS [mes11], 
+    [RESULPPTO].[mes12] AS [mes12], 
+    [RESULPPTO].[mes13] AS [mes13], 
+    [RESULPPTO].[mes14] AS [mes14], 
+    [RESULPPTO].[mes15] AS [mes15], 
+    [RESULPPTO].[mes16] AS [mes16], 
+    [RESULPPTO].[mes17] AS [mes17], 
+    [RESULPPTO].[mes18] AS [mes18], 
+    [RESULPPTO].[mes19] AS [mes19], 
+    [RESULPPTO].[mes20] AS [mes20], 
+    [RESULPPTO].[mes21] AS [mes21], 
+    [RESULPPTO].[mes22] AS [mes22], 
+    [RESULPPTO].[mes23] AS [mes23], 
+    [RESULPPTO].[mes24] AS [mes24], 
+    [RESULPPTO].[mes25] AS [mes25], 
+    [RESULPPTO].[mes26] AS [mes26], 
+    [RESULPPTO].[mes27] AS [mes27], 
+    [RESULPPTO].[mes28] AS [mes28], 
+    [RESULPPTO].[mes29] AS [mes29], 
+    [RESULPPTO].[mes30] AS [mes30], 
+    [RESULPPTO].[mes31] AS [mes31], 
+    [RESULPPTO].[mes32] AS [mes32], 
+    [RESULPPTO].[mes33] AS [mes33], 
+    [RESULPPTO].[mes34] AS [mes34], 
+    [RESULPPTO].[mes35] AS [mes35], 
+    [RESULPPTO].[mes36] AS [mes36], 
+    [RESULPPTO].[mes37] AS [mes37], 
+    [RESULPPTO].[mes38] AS [mes38], 
+    [RESULPPTO].[mes39] AS [mes39], 
+    [RESULPPTO].[mes40] AS [mes40], 
+    [RESULPPTO].[mes41] AS [mes41], 
+    [RESULPPTO].[mes42] AS [mes42], 
+    [RESULPPTO].[mes43] AS [mes43], 
+    [RESULPPTO].[mes44] AS [mes44], 
+    [RESULPPTO].[mes45] AS [mes45], 
+    [RESULPPTO].[mes46] AS [mes46], 
+    [RESULPPTO].[mes47] AS [mes47], 
+    [RESULPPTO].[mes48] AS [mes48], 
+    [RESULPPTO].[mes49] AS [mes49], 
+    [RESULPPTO].[mes50] AS [mes50], 
+    [RESULPPTO].[mes51] AS [mes51], 
+    [RESULPPTO].[mes52] AS [mes52], 
+    [RESULPPTO].[mes53] AS [mes53], 
+    [RESULPPTO].[mes54] AS [mes54], 
+    [RESULPPTO].[mes55] AS [mes55], 
+    [RESULPPTO].[mes56] AS [mes56], 
+    [RESULPPTO].[mes57] AS [mes57], 
+    [RESULPPTO].[mes58] AS [mes58], 
+    [RESULPPTO].[mes59] AS [mes59], 
+    [RESULPPTO].[mes60] AS [mes60], 
+    [RESULPPTO].[anio] AS [anio], 
+    [RESULPPTO].[mes] AS [mes], 
+    [RESULPPTO].[grupo] AS [grupo], 
+    [RESULPPTO].[orden] AS [orden]
+    FROM [dbo].[RESULPPTO] AS [RESULPPTO]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__Conceptos__conce__22751F6C" Association="Self.FK__Conceptos__conce__22751F6C">
+      <End Role="Concepto" EntitySet="Concepto" />
+      <End Role="ConceptosPorTipoReporte" EntitySet="ConceptosPorTipoReporte" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Conceptos__tipoR__2180FB33" Association="Self.FK__Conceptos__tipoR__2180FB33">
+      <End Role="TipoReporte" EntitySet="TipoReporte" />
+      <End Role="ConceptosPorTipoReporte" EntitySet="ConceptosPorTipoReporte" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Clientes_Localizacion" Association="Self.FK_Clientes_Localizacion">
+      <End Role="Localizacion" EntitySet="Localizacion" />
+      <End Role="Cliente" EntitySet="Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Concepto_Fase" Association="Self.FK_Concepto_Fase">
+      <End Role="Fase" EntitySet="Fase" />
+      <End Role="Concepto" EntitySet="Concepto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_Cliente" Association="Self.FK_ConceptoPpto_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_Concepto" Association="Self.FK_ConceptoPpto_Concepto">
+      <End Role="Concepto" EntitySet="Concepto" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_Contrato" Association="Self.FK_ConceptoPpto_Contrato">
+      <End Role="Contrato" EntitySet="Contrato" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_ContratoFase" Association="Self.FK_ConceptoPpto_ContratoFase">
+      <End Role="ContratoFase" EntitySet="ContratoFase" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_ContratoLocalizacion" Association="Self.FK_ConceptoPpto_ContratoLocalizacion">
+      <End Role="ContratoLocalizacion" EntitySet="ContratoLocalizacion" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_Escenario" Association="Self.FK_ConceptoPpto_Escenario">
+      <End Role="Escenario" EntitySet="Escenario" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_EscenarioPpto" Association="Self.FK_ConceptoPpto_EscenarioPpto">
+      <End Role="EscenarioPpto" EntitySet="EscenarioPpto" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_Fase" Association="Self.FK_ConceptoPpto_Fase">
+      <End Role="Fase" EntitySet="Fase" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_Localizacion" Association="Self.FK_ConceptoPpto_Localizacion">
+      <End Role="Localizacion" EntitySet="Localizacion" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_Ppto" Association="Self.FK_ConceptoPpto_Ppto">
+      <End Role="Ppto" EntitySet="Ppto" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contrato_Cliente" Association="Self.FK_Contrato_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Contrato" EntitySet="Contrato" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContratoFase_Contrato" Association="Self.FK_ContratoFase_Contrato">
+      <End Role="Contrato" EntitySet="Contrato" />
+      <End Role="ContratoFase" EntitySet="ContratoFase" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContratoFase_Fase" Association="Self.FK_ContratoFase_Fase">
+      <End Role="Fase" EntitySet="Fase" />
+      <End Role="ContratoFase" EntitySet="ContratoFase" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContratoLocalizacion_Contrato" Association="Self.FK_ContratoLocalizacion_Contrato">
+      <End Role="Contrato" EntitySet="Contrato" />
+      <End Role="ContratoLocalizacion" EntitySet="ContratoLocalizacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContratoLocalizacion_Localizacion" Association="Self.FK_ContratoLocalizacion_Localizacion">
+      <End Role="Localizacion" EntitySet="Localizacion" />
+      <End Role="ContratoLocalizacion" EntitySet="ContratoLocalizacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EscenarioPpto_Escenario" Association="Self.FK_EscenarioPpto_Escenario">
+      <End Role="Escenario" EntitySet="Escenario" />
+      <End Role="EscenarioPpto" EntitySet="EscenarioPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EscenarioPpto_Ppto" Association="Self.FK_EscenarioPpto_Ppto">
+      <End Role="Ppto" EntitySet="Ppto" />
+      <End Role="EscenarioPpto" EntitySet="EscenarioPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Localizacion_Pais" Association="Self.FK_Localizacion_Pais">
+      <End Role="Pais" EntitySet="Pais" />
+      <End Role="Localizacion" EntitySet="Localizacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Parametro_Cliente" Association="Self.FK_Parametro_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Parametro" EntitySet="Parametro" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Parametro_Escenario" Association="Self.FK_Parametro_Escenario">
+      <End Role="Escenario" EntitySet="Escenario" />
+      <End Role="Parametro" EntitySet="Parametro" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Parametro_Fase" Association="Self.FK_Parametro_Fase">
+      <End Role="Fase" EntitySet="Fase" />
+      <End Role="Parametro" EntitySet="Parametro" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Parametro_Ppto" Association="Self.FK_Parametro_Ppto">
+      <End Role="Ppto" EntitySet="Ppto" />
+      <End Role="Parametro" EntitySet="Parametro" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuarios_Perfil" Association="Self.FK_Usuarios_Perfil">
+      <End Role="Perfil" EntitySet="Perfil" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

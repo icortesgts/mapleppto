@@ -1,0 +1,72 @@
+﻿@model MaplePPTO.Models.Perfil
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Perfil</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_crea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_crea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_modifica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_modifica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usuario_crea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario_crea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usuario_modifica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario_modifica)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

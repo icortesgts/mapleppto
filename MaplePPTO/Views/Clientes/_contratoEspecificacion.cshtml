@@ -1,0 +1,54 @@
+﻿@model MaplePPTO.ViewModels.ClientAdditionalInfomartionViewModel
+<h2 class="m-0">Operación Geográfica</h2>
+<table class="table table-bordered table-hover table-sm">
+    <thead>
+        <tr>
+            <th>CIUDAD</th>
+            <th>DEPARTAMENTO</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.ContratoLocalizacionList != null)
+        {
+            foreach (var item in Model.ContratoLocalizacionList)
+            {
+                <tr>
+                    <td>
+                        @item.Localizacion.NomMun
+                        <input type="hidden" value="@item.id" />
+                    </td>
+                    <td>@item.Localizacion.NomDpto</td>
+                </tr>
+            }
+        }
+
+
+    </tbody>
+</table>
+<hr />
+<h2 class="m-0">Condiciones Por Fase</h2>
+<table class="table table-bordered table-hover table-sm">
+    <thead>
+        <tr>
+            <th>FASE</th>
+            <th>CONDICIONES</th>
+            <th>TARIFA PACIENTE</th>
+            <th>NRO PACIENTES</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ContratoFaseList)
+        {
+            <tr>
+                <td>
+                    @item.Fase.Nombre
+                    <input type="hidden" value="@item.id"  />
+                </td>
+                <td>@item.Condiciones</td>
+                <td> @string.Format("{0:N0}", item.TarifaPAciente)</td>
+                <td>@string.Format("{0:N0}", item.NroPAcientes)</td>
+            </tr>
+        }
+
+    </tbody>
+</table>

@@ -1,0 +1,250 @@
+﻿<!-- Brand Logo -->
+<a href="index3.html" class="brand-link bg-white">
+    <img src="~/Content/img/Logo.png" alt="Logo" class="w-100" style="">
+    <span class="brand-text font-weight-light"></span>
+</a>
+
+<!-- Sidebar -->
+<div class="sidebar pt-2">
+    <!-- Sidebar user panel (optional) -->
+    @*<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="~/Content/img/Logo.png" class="img-circle elevation-2" alt="logo"/>
+            </div>
+            <div class="info">
+                <a href="#" class="d-block">Alexander Pierce</a>
+            </div>
+        </div>*@
+
+    <!-- SidebarSearch Form -->
+    <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-sidebar text-white">
+                    <i class="fas fa-search fa-fw"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+    with font-awesome or any other icon font library -->
+            <li class="nav-item menu-open">
+                <a href="@Url.Action("Index","Home")" class="nav-link active">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        Dashboard
+                        @*<i class="right fas fa-angle-left"></i>*@
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-wrench"></i>
+                    <p>
+                        MAINTENANCE
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview" style="display: none;">
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index","Presupuesto")" class="nav-link">
+                            <i class="nav-icon fa fa-file-invoice-dollar"></i>
+                            <p>
+                                Budgets
+                                @*<span class="badge badge-info right">2</span>*@
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index","Escenario")" class="nav-link">
+                            <i class="nav-icon far fa-file"></i>
+                            <p>
+                                Escenaries
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index","Fases")" class="nav-link">
+                            <i class="nav-icon far fa-file"></i>
+                            <p>
+                                Phases
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index","Parametro")" class="nav-link">
+                            <i class="nav-icon fa fa-cog"></i>
+                            <p>
+                                Assumptions 
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index","Localizacion")" class="nav-link">
+                            <i class="nav-icon fa fa-map-marker-alt"></i>
+                            <p>
+                                Locations
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index","Concepto")" class="nav-link">
+                            <i class="nav-icon far fa-lightbulb"></i>
+                            <p>
+                                Concepts
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index","Clientes")" class="nav-link">
+                            <i class="nav-icon far fa-address-book"></i>
+                            <p>Clients</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index","InsumosDx")" class="nav-link">
+                            <i class="nav-icon fas fa-inbox"></i>
+                            <p>Insumos DX</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index","InsumosCxt")" class="nav-link">
+                            <i class="nav-icon fas fa-inbox"></i>
+                            <p>Insumos CEXT</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            @*<li class="nav-header"></li>*@
+            <li class="nav-item">
+                <a href="@Url.Action("Index","ProyeccionPacientes")" class="nav-link">
+                    <i class="nav-icon fas fa-cog"></i>
+                    <p>Settings</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="@Url.Action("Index","Resultados")" class="nav-link">
+                    @*<i class="nav-icon fas fa-ellipsis-h"></i>*@
+                    <i class="nav-icon fas fa-chart-pie"></i>
+                    <p>Operation Reports</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="@Url.Action("Index","Financiero")" class="nav-link">
+                    @*<i class="nav-icon fas fa-ellipsis-h"></i>*@
+                    <i class="nav-icon fas fa-chart-pie"></i>
+                    <p>Financial Reports</p>
+                </a>
+            </li>
+            @*<li class="nav-item">
+            <a href="@Url.Action("Index","TratamientoFQ")" class="nav-link">
+                <i class="nav-icon fas fa-ellipsis-h"></i>
+                <p>Treatment FQ</p>
+            </a>
+        </li>*@
+            @*<li class="@Url.Action("Index","FrecuenciaDX")">
+            <a href="iframe.html" class="nav-link">
+                <i class="nav-icon fas fa-ellipsis-h"></i>
+                <p>DX Frecuency</p>
+            </a>
+        </li>
+        <li class="@Url.Action("Index","SahosMang")">
+            <a href="iframe.html" class="nav-link">
+                <i class="nav-icon fas fa-ellipsis-h"></i>
+                <p>SAHOS Mang</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="@Url.Action("Index","SahosOp")" class="nav-link">
+                <i class="nav-icon fas fa-ellipsis-h"></i>
+                <p>SAHOS Op</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="@Url.Action("Index","SuministrosDX")" class="nav-link">
+                <i class="nav-icon fas fa-ellipsis-h"></i>
+                <p>DX Supplies</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="@Url.Action("Index","SuministrosExtC")" class="nav-link">
+                <i class="nav-icon fas fa-ellipsis-h"></i>
+                <p>ExtC Supplies</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="@Url.Action("Index","MascarillasDX")" class="nav-link">
+                <i class="nav-icon fas fa-ellipsis-h"></i>
+                <p>Dx Mask</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="@Url.Action("Index","MascaraTratamiento")" class="nav-link">
+                <i class="nav-icon fas fa-ellipsis-h"></i>
+                <p>Treatment Mask</p>
+            </a>
+        </li>*@
+            @*<li class="nav-item">
+            <a href="@Url.Action("Index","MatrizPacientes")" class="nav-link">
+                <i class="nav-icon fas fa-ellipsis-h"></i>
+                <p>Patients Matrix</p>
+            </a>
+        </li>*@
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-lock"></i>
+                    <p>
+                        SECURITY
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview" style="display: none;">
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index","Perfiles")" class="nav-link">
+                            <i class="nav-icon fas fa-ellipsis-h"></i>
+                            <p>Profiles</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index","Usuarios")" class="nav-link">
+                            <i class="nav-icon fas fa-ellipsis-h"></i>
+                            <p>Users</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-header"><hr class="border border-light" /></li>
+            <li class="nav-item">
+                <a href="@Url.Action("Logout","Autenticacion")" class="nav-link">
+                    <i class="nav-icon fas fa-ellipsis-h"></i>
+                    <p>Salir</p>
+                </a>
+            </li>
+
+
+
+        </ul>
+
+    </nav>
+    <!-- /.sidebar-menu -->
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+</div>
+
+<!-- /.sidebar -->

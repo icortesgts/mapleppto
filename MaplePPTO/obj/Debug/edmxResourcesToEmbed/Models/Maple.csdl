@@ -1,0 +1,947 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MAPLE" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Archivos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tabla" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="llave" Type="Int64" Nullable="false" />
+    <Property Name="Archivo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="fecha_crea" Type="DateTime" Precision="3" />
+    <Property Name="fecha_modifica" Type="DateTime" Precision="3" />
+    <Property Name="usuario_crea" Type="Int64" />
+    <Property Name="usuario_modifica" Type="Int64" />
+  </EntityType>
+  <EntityType Name="Auditoria">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_usuario" Type="Int64" Nullable="false" />
+    <Property Name="Tabla" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Llave" Type="Int64" Nullable="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Original" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nuevo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Operacion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ipmac" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha_crea" Type="DateTime" Precision="3" />
+    <Property Name="fecha_modifica" Type="DateTime" Precision="3" />
+    <Property Name="usuario_crea" Type="Int64" />
+    <Property Name="usuario_modifica" Type="Int64" />
+    <Property Name="id_cliente" Type="Int64" />
+  </EntityType>
+  <EntityType Name="Banco">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="Int32" Nullable="false" />
+    <Property Name="Entidad" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha_crea" Type="DateTime" Precision="3" />
+    <Property Name="fecha_modifica" Type="DateTime" Precision="3" />
+    <Property Name="usuario_crea" Type="Int64" />
+    <Property Name="usuario_modifica" Type="Int64" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tipo_persona" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Tipo_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Identificacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DV" Type="Int32" />
+    <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Telfono" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="emailR" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_localizacion" Type="Int64" Nullable="false" />
+    <Property Name="Tipo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Prospecto" Type="Boolean" />
+    <Property Name="Bloqueado" Type="Boolean" />
+    <Property Name="fecha_crea" Type="DateTime" Precision="3" />
+    <Property Name="fecha_modifica" Type="DateTime" Precision="3" />
+    <Property Name="usuario_crea" Type="Int64" />
+    <Property Name="usuario_modifica" Type="Int64" />
+    <NavigationProperty Name="Localizacion" Relationship="Self.FK_Clientes_Localizacion" FromRole="Cliente" ToRole="Localizacion" />
+    <NavigationProperty Name="ConceptoPpto" Relationship="Self.FK_ConceptoPpto_Cliente" FromRole="Cliente" ToRole="ConceptoPpto" />
+    <NavigationProperty Name="Contrato" Relationship="Self.FK_Contrato_Cliente" FromRole="Cliente" ToRole="Contrato" />
+    <NavigationProperty Name="Parametro" Relationship="MAPLE.FK_Parametro_Cliente" FromRole="Cliente" ToRole="Parametro" />
+  </EntityType>
+  <EntityType Name="Concepto">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Entrada" Type="Boolean" Nullable="false" />
+    <Property Name="TipoPpto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_fase" Type="Int64" />
+    <NavigationProperty Name="Fase" Relationship="Self.FK_Concepto_Fase" FromRole="Concepto" ToRole="Fase" />
+    <NavigationProperty Name="ConceptoPpto" Relationship="Self.FK_ConceptoPpto_Concepto" FromRole="Concepto" ToRole="ConceptoPpto" />
+    <NavigationProperty Name="ConceptosPorTipoReporte" Relationship="MAPLE.FK__Conceptos__conce__22751F6C" FromRole="Concepto" ToRole="ConceptosPorTipoReporte" />
+    <Property Name="orden" Type="Int64" />
+  </EntityType>
+  <EntityType Name="ConceptoPpto">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_Escenarioppto" Type="Int64" />
+    <Property Name="id_concepto" Type="Int64" />
+    <Property Name="id_cliente" Type="Int64" />
+    <Property Name="id_contrato" Type="Int64" />
+    <Property Name="id_localizacion" Type="Int64" />
+    <Property Name="id_contratofase" Type="Int64" />
+    <Property Name="id_fase" Type="Int64" />
+    <Property Name="id_escenario" Type="Int64" />
+    <Property Name="id_ppto" Type="Int64" />
+    <Property Name="id_contratolocalizacion" Type="Int64" />
+    <Property Name="Mes" Type="Int32" Nullable="false" />
+    <Property Name="Vigencia" Type="Int32" Nullable="false" />
+    <Property Name="valor" Type="Double" Nullable="false" />
+    <Property Name="fecha_creacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+    <Property Name="usu_crea" Type="Int64" Nullable="false" />
+    <Property Name="usu_modifica" Type="Int64" />
+    <NavigationProperty Name="Cliente" Relationship="Self.FK_ConceptoPpto_Cliente" FromRole="ConceptoPpto" ToRole="Cliente" />
+    <NavigationProperty Name="Concepto" Relationship="Self.FK_ConceptoPpto_Concepto" FromRole="ConceptoPpto" ToRole="Concepto" />
+    <NavigationProperty Name="Contrato" Relationship="Self.FK_ConceptoPpto_Contrato" FromRole="ConceptoPpto" ToRole="Contrato" />
+    <NavigationProperty Name="ContratoFase" Relationship="Self.FK_ConceptoPpto_ContratoFase" FromRole="ConceptoPpto" ToRole="ContratoFase" />
+    <NavigationProperty Name="ContratoLocalizacion" Relationship="Self.FK_ConceptoPpto_ContratoLocalizacion" FromRole="ConceptoPpto" ToRole="ContratoLocalizacion" />
+    <NavigationProperty Name="Escenario" Relationship="Self.FK_ConceptoPpto_Escenario" FromRole="ConceptoPpto" ToRole="Escenario" />
+    <NavigationProperty Name="EscenarioPpto" Relationship="Self.FK_ConceptoPpto_EscenarioPpto" FromRole="ConceptoPpto" ToRole="EscenarioPpto" />
+    <NavigationProperty Name="Fase" Relationship="Self.FK_ConceptoPpto_Fase" FromRole="ConceptoPpto" ToRole="Fase" />
+    <NavigationProperty Name="Localizacion" Relationship="Self.FK_ConceptoPpto_Localizacion" FromRole="ConceptoPpto" ToRole="Localizacion" />
+    <NavigationProperty Name="Ppto" Relationship="Self.FK_ConceptoPpto_Ppto" FromRole="ConceptoPpto" ToRole="Ppto" />
+    <Property Name="tipoInformacion" Type="Int16" />
+    <Property Name="orden" Type="Int64" />
+  </EntityType>
+  <EntityType Name="Contrato">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Contrato1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FecIni" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FecFin" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="id_cliente" Type="Int64" Nullable="false" />
+    <Property Name="Prospecto" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Cliente" Relationship="Self.FK_Contrato_Cliente" FromRole="Contrato" ToRole="Cliente" />
+    <NavigationProperty Name="ConceptoPpto" Relationship="Self.FK_ConceptoPpto_Contrato" FromRole="Contrato" ToRole="ConceptoPpto" />
+    <NavigationProperty Name="ContratoFase" Relationship="Self.FK_ContratoFase_Contrato" FromRole="Contrato" ToRole="ContratoFase" />
+    <NavigationProperty Name="ContratoLocalizacion" Relationship="Self.FK_ContratoLocalizacion_Contrato" FromRole="Contrato" ToRole="ContratoLocalizacion" />
+    <NavigationProperty Name="Parametro" Relationship="Self.FK_Parametro_Contrato" FromRole="Contrato" ToRole="Parametro" />
+  </EntityType>
+  <EntityType Name="ContratoFase">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_contrato" Type="Int64" Nullable="false" />
+    <Property Name="id_fase" Type="Int64" Nullable="false" />
+    <Property Name="Condiciones" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="TarifaPAciente" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="NroPAcientes" Type="Int64" />
+    <NavigationProperty Name="ConceptoPpto" Relationship="Self.FK_ConceptoPpto_ContratoFase" FromRole="ContratoFase" ToRole="ConceptoPpto" />
+    <NavigationProperty Name="Contrato" Relationship="Self.FK_ContratoFase_Contrato" FromRole="ContratoFase" ToRole="Contrato" />
+    <NavigationProperty Name="Fase" Relationship="Self.FK_ContratoFase_Fase" FromRole="ContratoFase" ToRole="Fase" />
+  </EntityType>
+  <EntityType Name="ContratoLocalizacion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_contrato" Type="Int64" Nullable="false" />
+    <Property Name="id_localizacion" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="ConceptoPpto" Relationship="Self.FK_ConceptoPpto_ContratoLocalizacion" FromRole="ContratoLocalizacion" ToRole="ConceptoPpto" />
+    <NavigationProperty Name="Contrato" Relationship="Self.FK_ContratoLocalizacion_Contrato" FromRole="ContratoLocalizacion" ToRole="Contrato" />
+    <NavigationProperty Name="Localizacion" Relationship="Self.FK_ContratoLocalizacion_Localizacion" FromRole="ContratoLocalizacion" ToRole="Localizacion" />
+  </EntityType>
+  <EntityType Name="Escenario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ConceptoPpto" Relationship="Self.FK_ConceptoPpto_Escenario" FromRole="Escenario" ToRole="ConceptoPpto" />
+    <NavigationProperty Name="EscenarioPpto" Relationship="Self.FK_EscenarioPpto_Escenario" FromRole="Escenario" ToRole="EscenarioPpto" />
+    <NavigationProperty Name="Parametro" Relationship="Self.FK_Parametro_Escenario" FromRole="Escenario" ToRole="Parametro" />
+  </EntityType>
+  <EntityType Name="EscenarioPpto">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_escenario" Type="Int64" Nullable="false" />
+    <Property Name="id_presupuesto" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="ConceptoPpto" Relationship="Self.FK_ConceptoPpto_EscenarioPpto" FromRole="EscenarioPpto" ToRole="ConceptoPpto" />
+    <NavigationProperty Name="Escenario" Relationship="Self.FK_EscenarioPpto_Escenario" FromRole="EscenarioPpto" ToRole="Escenario" />
+    <NavigationProperty Name="Ppto" Relationship="Self.FK_EscenarioPpto_Ppto" FromRole="EscenarioPpto" ToRole="Ppto" />
+  </EntityType>
+  <EntityType Name="Fase">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Concepto" Relationship="Self.FK_Concepto_Fase" FromRole="Fase" ToRole="Concepto" />
+    <NavigationProperty Name="ConceptoPpto" Relationship="Self.FK_ConceptoPpto_Fase" FromRole="Fase" ToRole="ConceptoPpto" />
+    <NavigationProperty Name="ContratoFase" Relationship="Self.FK_ContratoFase_Fase" FromRole="Fase" ToRole="ContratoFase" />
+    <NavigationProperty Name="Parametro" Relationship="Self.FK_Parametro_Fase" FromRole="Fase" ToRole="Parametro" />
+  </EntityType>
+  <EntityType Name="Localizacion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="coddpto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NomDpto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ISODpto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CodMun" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NomMun" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_pais" Type="Int64" Nullable="false" />
+    <Property Name="Operacion" Type="Boolean" />
+    <Property Name="fecha_crea" Type="DateTime" Precision="3" />
+    <Property Name="fecha_modifica" Type="DateTime" Precision="3" />
+    <Property Name="usuario_crea" Type="Int64" />
+    <Property Name="usuario_modifica" Type="Int64" />
+    <NavigationProperty Name="Cliente" Relationship="Self.FK_Clientes_Localizacion" FromRole="Localizacion" ToRole="Cliente" />
+    <NavigationProperty Name="ConceptoPpto" Relationship="Self.FK_ConceptoPpto_Localizacion" FromRole="Localizacion" ToRole="ConceptoPpto" />
+    <NavigationProperty Name="ContratoLocalizacion" Relationship="Self.FK_ContratoLocalizacion_Localizacion" FromRole="Localizacion" ToRole="ContratoLocalizacion" />
+    <NavigationProperty Name="Pais" Relationship="Self.FK_Localizacion_Pais" FromRole="Localizacion" ToRole="Pais" />
+  </EntityType>
+  <EntityType Name="Pais">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="codISO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_crea" Type="DateTime" Precision="3" />
+    <Property Name="fecha_modifica" Type="DateTime" Precision="3" />
+    <Property Name="usuario_crea" Type="Int64" />
+    <Property Name="usuario_modifica" Type="Int64" />
+    <NavigationProperty Name="Localizacion" Relationship="Self.FK_Localizacion_Pais" FromRole="Pais" ToRole="Localizacion" />
+  </EntityType>
+  <EntityType Name="Parametro">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ValorStr" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ValorNum" Type="Double" />
+    <Property Name="ValorDate" Type="DateTime" Precision="3" />
+    <Property Name="fecha_crea" Type="DateTime" Precision="3" />
+    <Property Name="fecha_modifica" Type="DateTime" Precision="3" />
+    <Property Name="usuario_crea" Type="Int64" />
+    <Property Name="usuario_modifica" Type="Int64" />
+    <Property Name="id_fase" Type="Int64" />
+    <Property Name="id_contrato" Type="Int64" />
+    <Property Name="id_escenario" Type="Int64" />
+    <NavigationProperty Name="Contrato" Relationship="Self.FK_Parametro_Contrato" FromRole="Parametro" ToRole="Contrato" />
+    <NavigationProperty Name="Escenario" Relationship="Self.FK_Parametro_Escenario" FromRole="Parametro" ToRole="Escenario" />
+    <NavigationProperty Name="Fase" Relationship="Self.FK_Parametro_Fase" FromRole="Parametro" ToRole="Fase" />
+    <Property Name="id_cliente" Type="Int64" />
+    <Property Name="id_ppto" Type="Int64" />
+    <NavigationProperty Name="Cliente" Relationship="MAPLE.FK_Parametro_Cliente" FromRole="Parametro" ToRole="Cliente" />
+    <NavigationProperty Name="Ppto" Relationship="MAPLE.FK_Parametro_Ppto" FromRole="Parametro" ToRole="Ppto" />
+  </EntityType>
+  <EntityType Name="Perfil">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_crea" Type="DateTime" Precision="3" />
+    <Property Name="fecha_modifica" Type="DateTime" Precision="3" />
+    <Property Name="usuario_crea" Type="Int64" />
+    <Property Name="usuario_modifica" Type="Int64" />
+    <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_Perfil" FromRole="Perfil" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="Ppto">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AInicial" Type="Int32" Nullable="false" />
+    <Property Name="AFinal" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ConceptoPpto" Relationship="Self.FK_ConceptoPpto_Ppto" FromRole="Ppto" ToRole="ConceptoPpto" />
+    <NavigationProperty Name="EscenarioPpto" Relationship="Self.FK_EscenarioPpto_Ppto" FromRole="Ppto" ToRole="EscenarioPpto" />
+    <NavigationProperty Name="Parametro" Relationship="MAPLE.FK_Parametro_Ppto" FromRole="Ppto" ToRole="Parametro" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="Binary" MaxLength="50" FixedLength="false" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Bloqueado" Type="Boolean" Nullable="false" />
+    <Property Name="Fecha_Password" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Fecha_Creacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Fecha_Modificacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="id_perfil" Type="Int64" Nullable="false" />
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Token" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_crea" Type="DateTime" Precision="3" />
+    <Property Name="fecha_modifica" Type="DateTime" Precision="3" />
+    <Property Name="usuario_crea" Type="Int64" />
+    <Property Name="usuario_modifica" Type="Int64" />
+    <NavigationProperty Name="Perfil" Relationship="Self.FK_Usuarios_Perfil" FromRole="Usuarios" ToRole="Perfil" />
+  </EntityType>
+  <EntityType Name="RESULPPTO">
+    <Key>
+      <PropertyRef Name="Ppto" />
+      <PropertyRef Name="Escenario" />
+      <PropertyRef Name="concepto" />
+      <PropertyRef Name="ciudad" />
+      <PropertyRef Name="departamento" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Contrato" />
+      <PropertyRef Name="Fase" />
+    </Key>
+    <Property Name="Ppto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Escenario" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_concepto" Type="Int64" />
+    <Property Name="id_localizacion" Type="Int64" />
+    <Property Name="id_cliente" Type="Int64" />
+    <Property Name="id_ppto" Type="Int64" />
+    <Property Name="id_escenario" Type="Int64" />
+    <Property Name="id_contrato" Type="Int64" />
+    <Property Name="id_fase" Type="Int64" />
+    <Property Name="concepto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="concept" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ciudad" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="departamento" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Contrato" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Fase" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="mesant6" Type="Double" />
+    <Property Name="mesant5" Type="Double" />
+    <Property Name="mesant4" Type="Double" />
+    <Property Name="mesant3" Type="Double" />
+    <Property Name="mesant2" Type="Double" />
+    <Property Name="mesant1" Type="Double" />
+    <Property Name="mes1" Type="Double" />
+    <Property Name="mes2" Type="Double" />
+    <Property Name="mes3" Type="Double" />
+    <Property Name="mes4" Type="Double" />
+    <Property Name="mes5" Type="Double" />
+    <Property Name="mes6" Type="Double" />
+    <Property Name="mes7" Type="Double" />
+    <Property Name="mes8" Type="Double" />
+    <Property Name="mes9" Type="Double" />
+    <Property Name="mes10" Type="Double" />
+    <Property Name="mes11" Type="Double" />
+    <Property Name="mes12" Type="Double" />
+    <Property Name="mes13" Type="Double" />
+    <Property Name="mes14" Type="Double" />
+    <Property Name="mes15" Type="Double" />
+    <Property Name="mes16" Type="Double" />
+    <Property Name="mes17" Type="Double" />
+    <Property Name="mes18" Type="Double" />
+    <Property Name="mes19" Type="Double" />
+    <Property Name="mes20" Type="Double" />
+    <Property Name="mes21" Type="Double" />
+    <Property Name="mes22" Type="Double" />
+    <Property Name="mes23" Type="Double" />
+    <Property Name="mes24" Type="Double" />
+    <Property Name="mes25" Type="Double" />
+    <Property Name="mes26" Type="Double" />
+    <Property Name="mes27" Type="Double" />
+    <Property Name="mes28" Type="Double" />
+    <Property Name="mes29" Type="Double" />
+    <Property Name="mes30" Type="Double" />
+    <Property Name="mes31" Type="Double" />
+    <Property Name="mes32" Type="Double" />
+    <Property Name="mes33" Type="Double" />
+    <Property Name="mes34" Type="Double" />
+    <Property Name="mes35" Type="Double" />
+    <Property Name="mes36" Type="Double" />
+    <Property Name="mes37" Type="Double" />
+    <Property Name="mes38" Type="Double" />
+    <Property Name="mes39" Type="Double" />
+    <Property Name="mes40" Type="Double" />
+    <Property Name="mes41" Type="Double" />
+    <Property Name="mes42" Type="Double" />
+    <Property Name="mes43" Type="Double" />
+    <Property Name="mes44" Type="Double" />
+    <Property Name="mes45" Type="Double" />
+    <Property Name="mes46" Type="Double" />
+    <Property Name="mes47" Type="Double" />
+    <Property Name="mes48" Type="Double" />
+    <Property Name="mes49" Type="Double" />
+    <Property Name="mes50" Type="Double" />
+    <Property Name="mes51" Type="Double" />
+    <Property Name="mes52" Type="Double" />
+    <Property Name="mes53" Type="Double" />
+    <Property Name="mes54" Type="Double" />
+    <Property Name="mes55" Type="Double" />
+    <Property Name="mes56" Type="Double" />
+    <Property Name="mes57" Type="Double" />
+    <Property Name="mes58" Type="Double" />
+    <Property Name="mes59" Type="Double" />
+    <Property Name="mes60" Type="Double" />
+    <Property Name="anio" Type="Int32" />
+    <Property Name="mes" Type="Int32" />
+    <Property Name="grupo" Type="Int32" />
+    <Property Name="tipoinformacion" Type="Int16" />
+    <Property Name="orden" Type="Int64" />
+  </EntityType>
+  <Association Name="FK_Clientes_Localizacion">
+    <End Role="Localizacion" Type="Self.Localizacion" Multiplicity="1" />
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Localizacion">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="id_localizacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Contrato_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Contrato" Type="Self.Contrato" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Contrato">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Concepto_Fase">
+    <End Role="Fase" Type="Self.Fase" Multiplicity="0..1" />
+    <End Role="Concepto" Type="Self.Concepto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fase">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Concepto">
+        <PropertyRef Name="id_fase" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_Concepto">
+    <End Role="Concepto" Type="Self.Concepto" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Concepto">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_concepto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_Contrato">
+    <End Role="Contrato" Type="Self.Contrato" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contrato">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_contrato" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_ContratoFase">
+    <End Role="ContratoFase" Type="Self.ContratoFase" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContratoFase">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_contratofase" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_ContratoLocalizacion">
+    <End Role="ContratoLocalizacion" Type="Self.ContratoLocalizacion" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContratoLocalizacion">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_contratolocalizacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_Escenario">
+    <End Role="Escenario" Type="Self.Escenario" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Escenario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_escenario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_EscenarioPpto">
+    <End Role="EscenarioPpto" Type="Self.EscenarioPpto" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EscenarioPpto">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_Escenarioppto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_Fase">
+    <End Role="Fase" Type="Self.Fase" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fase">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_fase" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_Localizacion">
+    <End Role="Localizacion" Type="Self.Localizacion" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Localizacion">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_localizacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConceptoPpto_Ppto">
+    <End Role="Ppto" Type="Self.Ppto" Multiplicity="0..1" />
+    <End Role="ConceptoPpto" Type="Self.ConceptoPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ppto">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptoPpto">
+        <PropertyRef Name="id_ppto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContratoFase_Contrato">
+    <End Role="Contrato" Type="Self.Contrato" Multiplicity="1" />
+    <End Role="ContratoFase" Type="Self.ContratoFase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contrato">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ContratoFase">
+        <PropertyRef Name="id_contrato" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContratoLocalizacion_Contrato">
+    <End Role="Contrato" Type="Self.Contrato" Multiplicity="1" />
+    <End Role="ContratoLocalizacion" Type="Self.ContratoLocalizacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contrato">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ContratoLocalizacion">
+        <PropertyRef Name="id_contrato" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Parametro_Contrato">
+    <End Role="Contrato" Type="Self.Contrato" Multiplicity="0..1" />
+    <End Role="Parametro" Type="Self.Parametro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contrato">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Parametro">
+        <PropertyRef Name="id_contrato" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContratoFase_Fase">
+    <End Role="Fase" Type="Self.Fase" Multiplicity="1" />
+    <End Role="ContratoFase" Type="Self.ContratoFase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fase">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ContratoFase">
+        <PropertyRef Name="id_fase" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContratoLocalizacion_Localizacion">
+    <End Role="Localizacion" Type="Self.Localizacion" Multiplicity="1" />
+    <End Role="ContratoLocalizacion" Type="Self.ContratoLocalizacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Localizacion">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ContratoLocalizacion">
+        <PropertyRef Name="id_localizacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EscenarioPpto_Escenario">
+    <End Role="Escenario" Type="Self.Escenario" Multiplicity="1" />
+    <End Role="EscenarioPpto" Type="Self.EscenarioPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Escenario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="EscenarioPpto">
+        <PropertyRef Name="id_escenario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Parametro_Escenario">
+    <End Role="Escenario" Type="Self.Escenario" Multiplicity="0..1" />
+    <End Role="Parametro" Type="Self.Parametro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Escenario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Parametro">
+        <PropertyRef Name="id_escenario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EscenarioPpto_Ppto">
+    <End Role="Ppto" Type="Self.Ppto" Multiplicity="1" />
+    <End Role="EscenarioPpto" Type="Self.EscenarioPpto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ppto">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="EscenarioPpto">
+        <PropertyRef Name="id_presupuesto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Parametro_Fase">
+    <End Role="Fase" Type="Self.Fase" Multiplicity="0..1" />
+    <End Role="Parametro" Type="Self.Parametro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fase">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Parametro">
+        <PropertyRef Name="id_fase" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Localizacion_Pais">
+    <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+    <End Role="Localizacion" Type="Self.Localizacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pais">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Localizacion">
+        <PropertyRef Name="id_pais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuarios_Perfil">
+    <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfil">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="id_perfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MAPLEEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Archivos" EntityType="Self.Archivos" />
+    <EntitySet Name="Auditoria" EntityType="Self.Auditoria" />
+    <EntitySet Name="Banco" EntityType="Self.Banco" />
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+    <EntitySet Name="Concepto" EntityType="Self.Concepto" />
+    <EntitySet Name="ConceptoPpto" EntityType="Self.ConceptoPpto" />
+    <EntitySet Name="Contrato" EntityType="Self.Contrato" />
+    <EntitySet Name="ContratoFase" EntityType="Self.ContratoFase" />
+    <EntitySet Name="ContratoLocalizacion" EntityType="Self.ContratoLocalizacion" />
+    <EntitySet Name="Escenario" EntityType="Self.Escenario" />
+    <EntitySet Name="EscenarioPpto" EntityType="Self.EscenarioPpto" />
+    <EntitySet Name="Fase" EntityType="Self.Fase" />
+    <EntitySet Name="Localizacion" EntityType="Self.Localizacion" />
+    <EntitySet Name="Pais" EntityType="Self.Pais" />
+    <EntitySet Name="Parametro" EntityType="Self.Parametro" />
+    <EntitySet Name="Perfil" EntityType="Self.Perfil" />
+    <EntitySet Name="Ppto" EntityType="Self.Ppto" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+    <EntitySet Name="RESULPPTO" EntityType="Self.RESULPPTO" />
+    <AssociationSet Name="FK_Clientes_Localizacion" Association="Self.FK_Clientes_Localizacion">
+      <End Role="Localizacion" EntitySet="Localizacion" />
+      <End Role="Cliente" EntitySet="Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_Cliente" Association="Self.FK_ConceptoPpto_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contrato_Cliente" Association="Self.FK_Contrato_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Contrato" EntitySet="Contrato" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Concepto_Fase" Association="Self.FK_Concepto_Fase">
+      <End Role="Fase" EntitySet="Fase" />
+      <End Role="Concepto" EntitySet="Concepto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_Concepto" Association="Self.FK_ConceptoPpto_Concepto">
+      <End Role="Concepto" EntitySet="Concepto" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_Contrato" Association="Self.FK_ConceptoPpto_Contrato">
+      <End Role="Contrato" EntitySet="Contrato" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_ContratoFase" Association="Self.FK_ConceptoPpto_ContratoFase">
+      <End Role="ContratoFase" EntitySet="ContratoFase" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_ContratoLocalizacion" Association="Self.FK_ConceptoPpto_ContratoLocalizacion">
+      <End Role="ContratoLocalizacion" EntitySet="ContratoLocalizacion" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_Escenario" Association="Self.FK_ConceptoPpto_Escenario">
+      <End Role="Escenario" EntitySet="Escenario" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_EscenarioPpto" Association="Self.FK_ConceptoPpto_EscenarioPpto">
+      <End Role="EscenarioPpto" EntitySet="EscenarioPpto" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_Fase" Association="Self.FK_ConceptoPpto_Fase">
+      <End Role="Fase" EntitySet="Fase" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_Localizacion" Association="Self.FK_ConceptoPpto_Localizacion">
+      <End Role="Localizacion" EntitySet="Localizacion" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConceptoPpto_Ppto" Association="Self.FK_ConceptoPpto_Ppto">
+      <End Role="Ppto" EntitySet="Ppto" />
+      <End Role="ConceptoPpto" EntitySet="ConceptoPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContratoFase_Contrato" Association="Self.FK_ContratoFase_Contrato">
+      <End Role="Contrato" EntitySet="Contrato" />
+      <End Role="ContratoFase" EntitySet="ContratoFase" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContratoLocalizacion_Contrato" Association="Self.FK_ContratoLocalizacion_Contrato">
+      <End Role="Contrato" EntitySet="Contrato" />
+      <End Role="ContratoLocalizacion" EntitySet="ContratoLocalizacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Parametro_Contrato" Association="Self.FK_Parametro_Contrato">
+      <End Role="Contrato" EntitySet="Contrato" />
+      <End Role="Parametro" EntitySet="Parametro" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContratoFase_Fase" Association="Self.FK_ContratoFase_Fase">
+      <End Role="Fase" EntitySet="Fase" />
+      <End Role="ContratoFase" EntitySet="ContratoFase" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContratoLocalizacion_Localizacion" Association="Self.FK_ContratoLocalizacion_Localizacion">
+      <End Role="Localizacion" EntitySet="Localizacion" />
+      <End Role="ContratoLocalizacion" EntitySet="ContratoLocalizacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EscenarioPpto_Escenario" Association="Self.FK_EscenarioPpto_Escenario">
+      <End Role="Escenario" EntitySet="Escenario" />
+      <End Role="EscenarioPpto" EntitySet="EscenarioPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Parametro_Escenario" Association="Self.FK_Parametro_Escenario">
+      <End Role="Escenario" EntitySet="Escenario" />
+      <End Role="Parametro" EntitySet="Parametro" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EscenarioPpto_Ppto" Association="Self.FK_EscenarioPpto_Ppto">
+      <End Role="Ppto" EntitySet="Ppto" />
+      <End Role="EscenarioPpto" EntitySet="EscenarioPpto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Parametro_Fase" Association="Self.FK_Parametro_Fase">
+      <End Role="Fase" EntitySet="Fase" />
+      <End Role="Parametro" EntitySet="Parametro" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Localizacion_Pais" Association="Self.FK_Localizacion_Pais">
+      <End Role="Pais" EntitySet="Pais" />
+      <End Role="Localizacion" EntitySet="Localizacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuarios_Perfil" Association="Self.FK_Usuarios_Perfil">
+      <End Role="Perfil" EntitySet="Perfil" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <EntitySet Name="InsumosCext" EntityType="MAPLE.InsumosCext" />
+    <EntitySet Name="InsumosDx" EntityType="MAPLE.InsumosDx" />
+    <EntitySet Name="ConceptosPorTipoReporte" EntityType="MAPLE.ConceptosPorTipoReporte" />
+    <EntitySet Name="TipoReporte" EntityType="MAPLE.TipoReporte" />
+    <AssociationSet Name="FK__Conceptos__conce__22751F6C" Association="MAPLE.FK__Conceptos__conce__22751F6C">
+      <End Role="Concepto" EntitySet="Concepto" />
+      <End Role="ConceptosPorTipoReporte" EntitySet="ConceptosPorTipoReporte" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Conceptos__tipoR__2180FB33" Association="MAPLE.FK__Conceptos__tipoR__2180FB33">
+      <End Role="TipoReporte" EntitySet="TipoReporte" />
+      <End Role="ConceptosPorTipoReporte" EntitySet="ConceptosPorTipoReporte" />
+    </AssociationSet>
+    <EntitySet Name="TipoCargaExcel" EntityType="MAPLE.TipoCargaExcel" />
+    <AssociationSet Name="FK_Parametro_Cliente" Association="MAPLE.FK_Parametro_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Parametro" EntitySet="Parametro" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Parametro_Ppto" Association="MAPLE.FK_Parametro_Ppto">
+      <End Role="Ppto" EntitySet="Ppto" />
+      <End Role="Parametro" EntitySet="Parametro" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="InsumosCext">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="presentacion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="mExperto" Type="Double" />
+    <Property Name="somnlogo" Type="Double" />
+    <Property Name="tRespiratorio" Type="Double" />
+    <Property Name="nutricion" Type="Double" />
+    <Property Name="psicologia" Type="Double" />
+    <Property Name="fecha_crea" Type="DateTime" Precision="0" />
+    <Property Name="fecha_modifica" Type="DateTime" Precision="0" />
+    <Property Name="usuario_crea" Type="Int32" />
+    <Property Name="usuario_modifica" Type="Int32" />
+  </EntityType>
+  <EntityType Name="InsumosDx">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="presentacion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="basl_leves" Type="Double" />
+    <Property Name="titulacion" Type="Double" />
+    <Property Name="nd" Type="Double" />
+    <Property Name="poligrafia" Type="Double" />
+    <Property Name="autoTitutacion" Type="Double" />
+    <Property Name="nivel2" Type="Double" />
+    <Property Name="fecha_crea" Type="DateTime" Precision="0" />
+    <Property Name="fecha_modifica" Type="DateTime" Precision="0" />
+    <Property Name="usuario_crea" Type="Int32" />
+    <Property Name="usuario_modifica" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ConceptosPorTipoReporte">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tipoReporteId" Type="Int32" />
+    <Property Name="conceptoId" Type="Int64" />
+    <NavigationProperty Name="Concepto" Relationship="MAPLE.FK__Conceptos__conce__22751F6C" FromRole="ConceptosPorTipoReporte" ToRole="Concepto" />
+    <NavigationProperty Name="TipoReporte" Relationship="MAPLE.FK__Conceptos__tipoR__2180FB33" FromRole="ConceptosPorTipoReporte" ToRole="TipoReporte" />
+    <Property Name="Grupo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="subGrupo" Type="Int32" />
+    <Property Name="orden" Type="Int64" />
+  </EntityType>
+  <EntityType Name="TipoReporte">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_crea" Type="DateTime" Precision="0" />
+    <Property Name="fecha_modifica" Type="DateTime" Precision="0" />
+    <Property Name="usuario_crea" Type="Int32" />
+    <Property Name="usuario_modifica" Type="Int32" />
+    <NavigationProperty Name="ConceptosPorTipoReporte" Relationship="MAPLE.FK__Conceptos__tipoR__2180FB33" FromRole="TipoReporte" ToRole="ConceptosPorTipoReporte" />
+    <Property Name="esFinanciero" Type="Boolean" />
+    <Property Name="deshabilitado" Type="Boolean" />
+  </EntityType>
+  <Association Name="FK__Conceptos__conce__22751F6C">
+    <End Type="MAPLE.Concepto" Role="Concepto" Multiplicity="0..1" />
+    <End Type="MAPLE.ConceptosPorTipoReporte" Role="ConceptosPorTipoReporte" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Concepto">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptosPorTipoReporte">
+        <PropertyRef Name="conceptoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Conceptos__tipoR__2180FB33">
+    <End Type="MAPLE.TipoReporte" Role="TipoReporte" Multiplicity="0..1" />
+    <End Type="MAPLE.ConceptosPorTipoReporte" Role="ConceptosPorTipoReporte" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoReporte">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ConceptosPorTipoReporte">
+        <PropertyRef Name="tipoReporteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TipoCargaExcel">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="esOperativo" Type="Boolean" />
+  </EntityType>
+  <Association Name="FK_Parametro_Cliente">
+    <End Type="MAPLE.Cliente" Role="Cliente" Multiplicity="0..1" />
+    <End Type="MAPLE.Parametro" Role="Parametro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Parametro">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Parametro_Ppto">
+    <End Type="MAPLE.Ppto" Role="Ppto" Multiplicity="0..1" />
+    <End Type="MAPLE.Parametro" Role="Parametro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ppto">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Parametro">
+        <PropertyRef Name="id_ppto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

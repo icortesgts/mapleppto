@@ -1,0 +1,148 @@
+﻿@model MaplePPTO.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<!-- /.login-logo -->
+<div class="card">
+    <div class="card-body login-card-body">
+        <p class="login-box-msg">Sign in to start your session</p>
+
+        <form id="loginForm" class="form-horizontal new-lg-form" action="/" method="post">
+            @Html.HiddenFor(model => model.ReturnURL)
+            <div class="input-group mb-3">
+                @*<input type="email" class="form-control" placeholder="Email">*@
+                @Html.TextBoxFor(model => model.Usuario, new { @required = "", @maxlength = "100", @class = "form-control", @placeholder = "Ingrese su usuario", @autofocus = "" })
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-user"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                @*<input type="password" class="form-control" placeholder="Password">*@
+                @Html.PasswordFor(model => model.Clave, new { @required = "", @maxlength = "20", @class = "form-control", @placeholder = "Ingrese su contraseña", @autofocus = "" })
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <div class="icheck-primary">
+                        <input type="checkbox" name="Recordar" id="Recordar">
+                        <label for="Recordar">
+                            Remember Me
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+
+                <!-- /.col -->
+                <div class="col-10 offset-2 col-md-8">
+                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                </div>
+                <div class="col-2" >
+                    <div id="loadingicon">
+                        <i style="font-size:18px" class="fas fa-3x fa-sync-alt fa-spin"></i><div style="font-size:9px" class="text-bold pt-2">Loading...</div>
+                    </div>
+                    
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+
+        @*<div class="social-auth-links text-center mb-3">
+                <p>- OR -</p>
+                <a href="#" class="btn btn-block btn-primary">
+                    <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                </a>
+                <a href="#" class="btn btn-block btn-danger">
+                    <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                </a>
+            </div>*@
+        <!-- /.social-auth-links -->
+
+        <p class="mb-1 mt-3">
+            <a href="forgot-password.html">I forgot my password</a>
+        </p>
+        @*<p class="mb-0">
+                <a href="register.html" class="text-center">Register a new membership</a>
+            </p>*@
+    </div>
+    <!-- /.login-card-body -->
+</div>
+
+@section scripts {
+
+    <!-- DataTables  & Plugins -->
+    <script src="~/Content/template/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/template/plugins/jszip/jszip.min.js"></script>
+    <script src="~/Content/template/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/Content/template/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/Content/template/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+    <script>
+
+
+
+        $(function () {
+            $("#loadingicon").hide();
+            $("#loginForm").on("submit", function (event) {
+                $("#loadingicon").show();
+                event.preventDefault();
+                const form = document.querySelectorAll("#loginForm input");
+                const formData = new FormData();
+
+                formData.append("Usuario", form[1].value);
+                formData.append("Clave", form[2].value);
+                formData.append("ReturnURL", form[0].value);
+                formData.append("Recordar", form[3].checked);
+          
+                const url = $(this).prop("action");
+                fetch(url, {
+                    method: 'post',
+                    body: formData,
+                })
+                    .then(res => res.json())
+                    .then(response => {
+                        $("#loadingicon").hide();
+                        if (response.Code == 0) {
+                                
+                            location.href = response.ReturnURL;
+                        } else {
+                            Swal.fire(
+                                response.Message,
+                                '',
+                                'error');
+                        }
+                    })
+                    .catch(error => {
+                        $("#loadingicon").hide();
+                        Swal.fire(
+                            error.message,
+                            '',
+                            'error')
+                    });
+
+            });
+
+        });
+
+
+
+
+
+
+    </script>
+
+}

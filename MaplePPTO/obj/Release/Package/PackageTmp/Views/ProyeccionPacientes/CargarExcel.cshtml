@@ -1,0 +1,559 @@
+﻿@model MaplePPTO.ViewModels.PryPacientesListViewModel
+
+@*<h1 class="m-0">SETTINGS</h1>*@
+
+<div class="card card-primary card-outline mt-2">
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="fas fa-edit"></i>
+            SETTINGS
+        </h3>
+
+    </div>
+    <div class="card-body">
+        <h4>LOAD BULK DATA</h4>
+        <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">USING FORM</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">USING EXCEL</a>
+            </li>
+            @*<li class="nav-item">
+                    <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#custom-content-below-messages" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="custom-content-below-settings-tab" data-toggle="pill" href="#custom-content-below-settings" role="tab" aria-controls="custom-content-below-settings" aria-selected="false">Settings</a>
+                </li>*@
+        </ul>
+        <div class="tab-content" id="custom-content-below-tabContent">
+            <div class="tab-pane fade active show" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                <form>
+                    <div class="row">
+                        <div class="col-12 col-md-4">
+                            <label>Budget</label>
+                            @Html.DropDownListFor(model => model.PresupuestoId, Model.selectListBudgets, new { @class = "form-control", @id = "ddlBudgets" })
+                        </div>
+                        <div class="col-12  col-md-4">
+                            <label>Escenarie</label>
+                            @Html.DropDownListFor(model => model.EscenarioId, Model.selectListEscenaries, new { @class = "form-control", @id = "ddlEscenaries" })
+                        </div>
+                        <div class="col-12  col-md-4">
+                            <button type="button" id="btnCalculate" class="btn btn-outline-success mt-4 float-right">
+                                <span>CALCULATE BASE</span>
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table id="gridProy" class="table table-sm table-bordered table-hover" style="font-size:13px">
+                                    <thead>
+                                        <tr>
+                                            <th>CLIENT</th>
+                                            <th>CITY</th>
+                                            <th>CONCEPT</th>
+                                            <th>DATE</th>
+                                            <th>VALUE</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="client" style="width:95%" value="" />
+                                                <input type="hidden" class="client_id" />
+                                            </td>
+                                            <td>
+                                                <input type="text" class="city" style="width:95%" value="" />
+                                                <input type="hidden" class="city_id" />
+                                            </td>
+                                            <td>
+                                                <input type="text" class="concept" style="width:95%" value="" />
+                                                <input type="hidden" class="concept_id" />
+                                            </td>
+                                            <td>
+                                                <input type="date" class="fecha" style="width:95%" />
+                                            </td>
+                                            <td>
+                                                <input type="number" class="valor" style="width:95%" value="" min="0" step=".1" />
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeItem(event)">REMOVE</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="6"><button type="button" id="addItem" class="btn btn-outline-primary btn-sm">ADD ITEM</button></td>
+                                        </tr>
+                                    </tfoot>
+
+                                </table>
+                            </div>
+
+                            <a href="@Url.Action("SaveBulkPppto", "ProyeccionPacientes")" class="float" id="saveChanges">
+
+                                <span style="font-weight:bold;font-size:12px">SAVE</span> <i class="fa fa-pen my-float"></i>
+
+                            </a>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                <form id="loadExcelForm">
+                    <div class="row">
+                        @*<div class="col-12 col-md-2">
+                                <a href="@Url.Action("Create", "ProyeccionPacientes")">
+                                    <span>Create New </span>
+                                    <i class="fas fa-solid fa-plus"></i>
+                                </a>
+                            </div>*@
+                        <div class="col-12 col-md-12">
+                            <label>Input document excel type</label>
+                            @Html.DropDownListFor(model => model.PresupuestoId, Model.selectExcelTypes, new { @class = "form-control", @id = "ddlTipo" })
+                            @*<select class="form-control" id="ddlTipo">
+                                    <option value="1">Carga Pacientes</option>
+                                    <option value="2">Clientes Nuevos</option>
+                                </select>*@
+
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <label>Budget</label>
+                            @Html.DropDownListFor(model => model.PresupuestoId, Model.selectListBudgets, new { @class = "form-control", @id = "ddlBudgets" })
+                        </div>
+                        <div class="col-12  col-md-12">
+                            <label>Escenarie</label>
+                            @Html.DropDownListFor(model => model.EscenarioId, Model.selectListEscenaries, new { @class = "form-control", @id = "ddlEscenaries" })
+                        </div>
+                        <div class="col-12  col-md-12">
+                            <label>Select excel document</label>
+                            <input type="file" id="flAdjuntar" class="form-control-file" />
+                        </div>
+
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-8 col-md-2">
+                            <button type="button" id="btnCargarExcel" class="btn btn-outline-primary">LOAD EXCEL</button>
+                        </div>
+                        <div class="col-4 col-md-1 ">
+                            <div id="loadingicon">
+                                <i style="font-size:18px" class="fas fa-3x fa-sync-alt fa-spin"></i><div style="font-size:9px" class="text-bold pt-2">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            @*<div class="tab-pane fade" id="custom-content-below-messages" role="tabpanel" aria-labelledby="custom-content-below-messages-tab">
+                    Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt eleifend ac ornare magna.
+                </div>
+                <div class="tab-pane fade" id="custom-content-below-settings" role="tabpanel" aria-labelledby="custom-content-below-settings-tab">
+                    Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis tempus turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque tincidunt venenatis vulputate. Morbi euismod molestie tristique. Vestibulum consectetur dolor a vestibulum pharetra. Donec interdum placerat urna nec pharetra. Etiam eget dapibus orci, eget aliquet urna. Nunc at consequat diam. Nunc et felis ut nisl commodo dignissim. In hac habitasse platea dictumst. Praesent imperdiet accumsan ex sit amet facilisis.
+                </div>*@
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+    @*<div class="card-header">
+            <h3 class="card-title">DataTable with default features</h3>
+        </div>*@
+    <!-- /.card-header -->
+    <div class="card-body">
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+
+
+@section scripts {
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js" ></script>
+    <script>
+        const urlLoadExcel = '@Url.Action("CargarExcel", "ProyeccionPacientes")';
+        const urlList = '@Url.Action("Index", "ProyeccionPacientes")';
+        const urlFilterClient = '@Url.Action("FilterClientByName", "Compartido")';
+        const urlFilterConcept = '@Url.Action("FilterConcetByName", "Compartido")';
+        const urlFilterCity = '@Url.Action("FilterCityByName", "Compartido")';
+        const urlCalculateBase = '@Url.Action("CalculateBase", "Compartido")';
+        let listToSave = [];
+        $(function () {
+            updateAutocomplete();
+            $("#loadingicon").hide();
+            $('#btnCargarExcel').on('click', function () {
+                $("#loadingicon").show();
+
+                // Checking whether FormData is available in browser  
+                if (window.FormData !== undefined) {
+
+                    var fileUpload = $('#flAdjuntar').get(0);
+                    var files = fileUpload.files;
+
+                    // Create FormData object  
+                    var fileData = new FormData();
+
+                    // Looping over all files and add it to FormData object  
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append(files[i].name, files[i]);
+                    }
+
+                    // Adding one more key to FormData object  
+                    fileData.append('PresupuestoId', $("#ddlBudgets").val());
+                    fileData.append('EscenarioId', $("#ddlEscenaries").val());
+                    fileData.append('TipoID', $("#ddlTipo").val());
+
+                    $.ajax({
+                        url: urlLoadExcel,
+                        type: "POST",
+                        contentType: false, // Not to set any content header  
+                        processData: false, // Not to process data  
+                        data: fileData,
+                        beforeSend: function () {
+
+                            /*$('#loader').removeClass('d-none');*/
+
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            $("#loadingicon").hide();
+                            if (data.model.Code > 0) {
+                                alert("Error :"+ data.model.Message);
+                            } else {
+                                alert("los datos de cargaron correctamente");
+                                location.href = urlList;
+                            }
+
+
+                        },
+                        error: function (err) {
+                            /*$('#loader').addClass('d-none');*/
+                            $("#loadingicon").hide();
+                            alert(err.statusText);
+                        }
+                    });
+                } else {
+                    $("#loadingicon").hide();
+                    alert("FormData is not supported.");
+                }
+
+            });
+        });
+
+        $('#addItem').on('click', function () {
+
+            const row = `<tr>
+                            <td>
+                                <input type="text" class="client" style="width:95%" value="" />
+                                <input type="hidden" class="client_id"/>
+                            </td>
+                            <td>
+                                <input type="text" class="city" style="width:95%" value="" />
+                                <input type="hidden" class="city_id"/>
+                            </td>
+                            <td>
+                                <input type="text" class="concept" style="width:95%" value="" />
+                                <input type="hidden" class="concept_id"/>
+                            </td>
+                            <td>
+                                <input type="date" class="fecha" style="width:95%" />
+                            </td>
+                            <td>
+                                <input type="number" class="valor" style="width:95%" value="" min="0" step=".1" />
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeItem(event)">REMOVE</button>
+                            </td>
+                        </tr>
+                `;
+
+            $('#gridProy tbody').append(row);
+            updateAutocomplete();
+        });
+
+        $('#btnCalculate').on('click', (ev) => {
+
+            $('button').prop('disabled', true);
+
+            const loading = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`;
+            const valueText = `CALCULATE BASE`;
+            $('#btnCalculate').html(loading);
+
+            if (!confirm("Are you sure?")) {
+                $('#btnCalculate').html(valueText);
+                $('button').prop('disabled', false);
+                return false;
+            }
+
+            const presupuesto = document.getElementById("ddlBudgets");
+            const escenario = document.getElementById("ddlEscenaries");
+            const PresupuestoId = presupuesto.value;
+            const EscenarioId = escenario.value;
+
+            fetch(urlCalculateBase, {
+                method: 'POST',
+                body: JSON.stringify({ PresupuestoId, EscenarioId }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8' // Indicates the content
+                }
+            }).then(res => res.json())
+                .then(response => {
+                    $('#btnCalculate').html(valueText);
+                    $('button').prop('disabled', false);
+                    if (response.errorCode == 0) {
+                        Swal.fire(
+                            'Success!',
+                            'Data Saved successfully.',
+                            /*'success'*/
+                        );
+                        listToSave = [];
+                        //setTimeout(() => location.reload(true), 2000);
+                    } else {
+                        Swal.fire(
+                            response.message,
+                            '',
+                            'error');
+                    }
+                })
+                .catch(error => {
+                    $('#btnCalculate').html(valueText);
+                    $('button').prop('disabled', false);
+                    Swal.fire(
+                        error.message,
+                        '',
+                        'error')
+                });
+        });
+
+        function removeItem(event) {
+            event.target.parentElement.parentElement.remove();
+        }
+
+        function updateAutocomplete() {
+            $("#gridProy tbody .client").autocomplete({
+                source: function (request, response) {
+                    fetch(`${urlFilterClient}?text=${request.term}`, {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' }
+                    }).then(response => {
+                        if (response.ok) { return response.json() }
+                        throw new Error(response.statusText);  // throw an error if there's something wrong with the response
+                    }).then(data => {
+                        //console.log(data);
+                        let dataResponse = [];
+                        if (data.list != null) {
+                            dataResponse = data.list.map(item => {
+                                return { label: item.Nombre, value: item.Nombre, obj: item };
+                            });
+                        }
+                        response(dataResponse);
+
+                    }).catch(error => alert(error));
+                },
+                select: function (event, ui) {
+                    const element = this;
+                    const elementHidden = element.nextElementSibling
+                    elementHidden.value = ui.item.obj.Id;
+
+
+                },
+                change: function (event, ui) {
+                    if (ui.item === null) {
+                        const element = this;
+                        const elementHidden = element.nextElementSibling
+                        elementHidden.value = 0;
+
+                    }
+                },
+                messages: {
+                    noResults: "",
+                    results: function (count) {
+                        return count + (count > 1 ? ' results' : ' result ') + ' found';
+                    }
+                }
+            });
+
+            $("#gridProy tbody .city").autocomplete({
+                source: function (request, response) {
+                    fetch(`${urlFilterCity}?text=${request.term}`, {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' }
+                    }).then(response => {
+                        if (response.ok) { return response.json() }
+                        throw new Error(response.statusText);  // throw an error if there's something wrong with the response
+                    }).then(data => {
+                        //console.log(data);
+                        let dataResponse = [];
+                        if (data.list != null) {
+                            dataResponse = data.list.map(item => {
+                                return { label: item.Nombre, value: item.Nombre, obj: item };
+                            });
+                        }
+                        response(dataResponse);
+
+                    }).catch(error => alert(error));
+                },
+                select: function (event, ui) {
+                    const element = this;
+                    const elementHidden = element.nextElementSibling
+                    elementHidden.value = ui.item.obj.Id;
+
+
+                },
+                change: function (event, ui) {
+                    if (ui.item === null) {
+                        const element = this;
+                        const elementHidden = element.nextElementSibling
+                        elementHidden.value = 0;
+
+                    }
+                },
+                messages: {
+                    noResults: "",
+                    results: function (count) {
+                        return count + (count > 1 ? ' results' : ' result ') + ' found';
+                    }
+                }
+            });
+
+            $("#gridProy tbody .concept").autocomplete({
+                source: function (request, response) {
+                    fetch(`${urlFilterConcept}?text=${request.term}`, {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' }
+                    }).then(response => {
+                        if (response.ok) { return response.json() }
+                        throw new Error(response.statusText);  // throw an error if there's something wrong with the response
+                    }).then(data => {
+                        //console.log(data);
+                        let dataResponse = [];
+                        if (data.list != null) {
+                            dataResponse = data.list.map(item => {
+                                return { label: item.Nombre, value: item.Nombre, obj: item };
+                            });
+                        }
+                        response(dataResponse);
+
+                    }).catch(error => alert(error));
+                },
+                select: function (event, ui) {
+                    const element = this;
+                    const elementHidden = element.nextElementSibling
+                    elementHidden.value = ui.item.obj.Id;
+
+
+                },
+                change: function (event, ui) {
+                    if (ui.item === null) {
+                        const element = this;
+                        const elementHidden = element.nextElementSibling
+                        elementHidden.value = 0;
+
+                    }
+                },
+                messages: {
+                    noResults: "",
+                    results: function (count) {
+                        return count + (count > 1 ? ' results' : ' result ') + ' found';
+                    }
+                }
+            });
+        }
+
+
+        $('#saveChanges').on('click', function () {
+
+            event.preventDefault();
+            let url = event.currentTarget.href;
+            const table = document.querySelectorAll('#gridProy tbody tr');
+            const ppto = document.getElementById('ddlBudgets');
+            const esc = document.getElementById('ddlEscenaries');
+            listToSave = [];
+
+            for (let row of table) {
+
+                const item = {
+                    "id_concepto": row.querySelectorAll('.concept_id')[0]?.value,
+                    "id_cliente": row.getElementsByClassName('client_id')[0]?.value,
+                    "id_localizacion": row.getElementsByClassName('city_id')[0]?.value,
+                    "id_escenario": esc?.value,
+                    "id_ppto": ppto?.value,
+                    "valor": row.getElementsByClassName('valor')[0]?.value,
+                    "fecha": row.getElementsByClassName('fecha')[0]?.value,
+                    "anio": 0,
+                    "mes": 0
+                }
+
+                //const date = moment(item.fecha).format('DD-MM-YYYY');
+                item.anio = moment(item.fecha).format('YYYY');
+                item.mes = moment(item.fecha).format('MM');
+
+                listToSave.push(item);
+            }
+
+            console.log(listToSave);
+
+            if (listToSave.length > 0) {
+
+
+                swal.fire({
+                    html: '<i class="fas fa-3x fa-sync-alt fa-spin"></i> <div class="text-bold pt-2">Loading...</div>',
+                });
+
+                fetch(url, {
+                    method: 'POST',
+                    body: JSON.stringify({ bulkInsertList: listToSave }),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8' // Indicates the content
+                    }
+                })
+                    .then(res => res.json())
+                    .then(response => {
+                        if (response.errorCode == 0) {
+                            Swal.fire(
+                                'Success!',
+                                'Data Saved successfully.',
+                                /*'success'*/
+                            );
+                            listToSave = [];
+                            //setTimeout(() => location.reload(true), 2000);
+                        } else {
+                            Swal.fire(
+                                response.message,
+                                '',
+                                'error');
+                        }
+                    })
+                    .catch(error => {
+                        Swal.fire(
+                            error.message,
+                            '',
+                            'error')
+                    });
+
+
+
+            } else {
+                Swal.fire(
+                    "Not changes Detected.",
+                    '',
+                    'error')
+            }
+
+        });
+
+
+
+    </script>
+
+}

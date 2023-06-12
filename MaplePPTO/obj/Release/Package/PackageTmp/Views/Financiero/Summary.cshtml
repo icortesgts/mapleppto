@@ -1,0 +1,192 @@
+﻿@model MaplePPTO.ViewModels.ParametroViewModel
+    @{ 
+        var conceptos = Model.resultSummaries?.GroupBy(x => x.Nombre).ToList();
+        var header = Model.resultSummaries?.Select(x => x.fecha).Distinct().OrderBy(x => x).ToList();
+    }
+
+<h1 class="m-0">Financial Reports</h1>
+<div class="card" id="app">
+
+    <div class="card-body">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "mainForm" }))
+        {
+            @Html.HiddenFor(model => model.showMonths, new { @id = "hdnShowMonth" })
+            <div class="row">
+
+                <div class="col-12 col-md-3">
+                    <label>Report Type</label>
+                    @Html.DropDownListFor(model => model.TipoReporteId, Model.selectLisReportTypes, new { @class = "form-control", @id = "ddlBudgets" })
+
+                </div>
+                <div class="col-12  col-md-3">
+                    <label>Budget</label>
+                    @Html.DropDownListFor(model => model.PresupuestoId, Model.selectListBudgets, new { @class = "form-control", @id = "ddlBudgets" })
+                </div>
+                <div class="col-12  col-md-3">
+                    <label>Escenarie</label>
+                    @Html.DropDownListFor(model => model.EscenarioId, Model.selectListEscenaries, new { @class = "form-control", @id = "ddlEscenaries" })
+                </div>
+
+            </div>
+            <div class="row mt-4">
+                <div class="col-12 col-md-6" style="text-align:end">
+                    <button type="submit" class="btn btn-outline-primary">FILTER REPORT</button>
+                </div>
+            </div>
+        }
+        <p>
+
+
+        </p>
+        <hr />
+
+        <div class="table-responsive">
+
+            <table style="font-size:12px" class="table table-sm table-bordered table-hover">
+                <thead class="text-center">
+                    @if (header != null)
+                    {
+                        
+                    <tr>
+
+                        <th rowspan="2"></th>
+                        @for (int i = 0; i < header.Count(); i++)
+                        {
+                            if (i > 0)
+                            {
+                                <td class="border-0" style="width: 30px; background-color: #002c5e;"></td>
+                            }
+                            <th colspan="3">@header[i].ToString("dd MMM; yyyy")</th>
+                        }
+                    </tr>
+                    <tr>
+
+                        @for (int i = 0; i < header.Count(); i++)
+                        {
+                            if (i > 0)
+                            {
+                                <td class="border-0" style="width: 30px; background-color: #002c5e;"></td>
+                            }
+                            <th style="min-width:100px">COP</th>
+                            <th style="min-width:100px">USD</th>
+                            <th style="min-width:60px">%</th>
+                        }
+                    </tr>
+                        }
+
+                    
+
+                </thead>
+                <tbody>
+                    @if (conceptos != null)
+                    {
+                        foreach (var item in conceptos)
+                        {
+                    <tr>
+                        <th style="min-width:200px">@item.Key</th>
+                        @for (int i = 0; i < item.Count(); i++)
+                        {
+                            if (i > 0)
+                            {
+                                <td class="border-0" style="width: 30px; background-color: #002c5e;"></td>
+                            }
+                            <td><span class="float-left">$</span> <span class="float-right">@Math.Round(item.ToArray()[i].cop, 2).ToString("#,##0.00")</span> </td>
+                            <td><span  class="float-left">$ </span> <span class="float-right">@Math.Round(item.ToArray()[i].usd, 2).ToString("#,##0.00")</span></td>
+                            <td class="text-right">@Math.Round(item.ToArray()[i].porcentaje * 100, 0) <span> %</span> </td>
+
+                        }
+
+
+                    </tr>
+
+                        }
+                    }
+                </tbody>
+
+            </table>
+
+
+
+
+        </div>
+
+
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+
+@section scripts {
+
+    <!-- DataTables  & Plugins -->
+    <script src="~/Content/template/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/template/plugins/jszip/jszip.min.js"></script>
+    <script src="~/Content/template/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/Content/template/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/Content/template/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+    <script>
+        @*const lastShowMonthValue = '@Model.showMonths';
+
+        const totalColumns = '@(Model.listHeader == null ? 0 : Model.listHeader.Count)'
+        const mesesFaltantes = '@Model.mesesFaltantesAnioBase';
+        //=============================>
+        //-codigo usando librerias Jquery
+        $(function () {
+
+
+            //$('#ddlBudgets').on('change', function () {
+            //    $('#mainForm').submit();
+            //});
+
+            //$('#ddlEscenaries').on('change', function () {
+            //    $('#mainForm').submit();
+            //});
+
+
+            var table = $("#example2").DataTable({
+                "responsive": false,
+                "lengthChange": false,
+                "autoWidth": false,
+                "scrollX": true,
+                "scrollY": 500,
+                "paging": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print"],
+
+            });
+            table.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+
+            GenColumsShow(lastShowMonthValue);
+
+            $('.rdnShowMonth').on('click', function (event) {
+                console.log("", event.target);
+                $('#hdnShowMonth').val(event.target.value);
+                GenColumsShow(event.target.value);
+            });
+
+            function GenColumsShow(totalColumShow) {
+                let colNumber = (parseInt(totalColumShow) || 12) + 7 + (parseInt(mesesFaltantes) || 0);
+
+                let total = (parseInt(totalColumns) || 0) +7;
+                let colums = [...Array(total).keys()].filter(x => (x > (colNumber - 1)));
+
+                table.columns().visible(true);
+                table.columns(colums).visible(false);
+            }
+
+        });*@
+
+        //-fin codigo usando librerias Jquery
+        //<=============================
+
+
+    </script>
+
+}

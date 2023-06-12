@@ -1,0 +1,435 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MAPLEStoreContainer" CdmEntityContainer="MAPLEEntities">
+    <EntitySetMapping Name="Archivos">
+      <EntityTypeMapping TypeName="MAPLE.Archivos">
+        <MappingFragment StoreEntitySet="Archivos">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="tabla" ColumnName="tabla" />
+          <ScalarProperty Name="llave" ColumnName="llave" />
+          <ScalarProperty Name="Archivo" ColumnName="Archivo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="fecha_crea" ColumnName="fecha_crea" />
+          <ScalarProperty Name="fecha_modifica" ColumnName="fecha_modifica" />
+          <ScalarProperty Name="usuario_crea" ColumnName="usuario_crea" />
+          <ScalarProperty Name="usuario_modifica" ColumnName="usuario_modifica" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Auditoria">
+      <EntityTypeMapping TypeName="MAPLE.Auditoria">
+        <MappingFragment StoreEntitySet="Auditoria">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="Tabla" ColumnName="Tabla" />
+          <ScalarProperty Name="Llave" ColumnName="Llave" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="Original" ColumnName="Original" />
+          <ScalarProperty Name="Nuevo" ColumnName="Nuevo" />
+          <ScalarProperty Name="Operacion" ColumnName="Operacion" />
+          <ScalarProperty Name="ipmac" ColumnName="ipmac" />
+          <ScalarProperty Name="fecha_crea" ColumnName="fecha_crea" />
+          <ScalarProperty Name="fecha_modifica" ColumnName="fecha_modifica" />
+          <ScalarProperty Name="usuario_crea" ColumnName="usuario_crea" />
+          <ScalarProperty Name="usuario_modifica" ColumnName="usuario_modifica" />
+          <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Banco">
+      <EntityTypeMapping TypeName="MAPLE.Banco">
+        <MappingFragment StoreEntitySet="Banco">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Entidad" ColumnName="Entidad" />
+          <ScalarProperty Name="fecha_crea" ColumnName="fecha_crea" />
+          <ScalarProperty Name="fecha_modifica" ColumnName="fecha_modifica" />
+          <ScalarProperty Name="usuario_crea" ColumnName="usuario_crea" />
+          <ScalarProperty Name="usuario_modifica" ColumnName="usuario_modifica" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cliente">
+      <EntityTypeMapping TypeName="MAPLE.Cliente">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="tipo_persona" ColumnName="tipo_persona" />
+          <ScalarProperty Name="Tipo_ID" ColumnName="Tipo_ID" />
+          <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+          <ScalarProperty Name="DV" ColumnName="DV" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Telfono" ColumnName="Telfono" />
+          <ScalarProperty Name="emailR" ColumnName="emailR" />
+          <ScalarProperty Name="id_localizacion" ColumnName="id_localizacion" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Prospecto" ColumnName="Prospecto" />
+          <ScalarProperty Name="Bloqueado" ColumnName="Bloqueado" />
+          <ScalarProperty Name="fecha_crea" ColumnName="fecha_crea" />
+          <ScalarProperty Name="fecha_modifica" ColumnName="fecha_modifica" />
+          <ScalarProperty Name="usuario_crea" ColumnName="usuario_crea" />
+          <ScalarProperty Name="usuario_modifica" ColumnName="usuario_modifica" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Concepto">
+      <EntityTypeMapping TypeName="MAPLE.Concepto">
+        <MappingFragment StoreEntitySet="Concepto">
+          <ScalarProperty Name="orden" ColumnName="orden" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Entrada" ColumnName="Entrada" />
+          <ScalarProperty Name="TipoPpto" ColumnName="TipoPpto" />
+          <ScalarProperty Name="id_fase" ColumnName="id_fase" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ConceptoPpto">
+      <EntityTypeMapping TypeName="MAPLE.ConceptoPpto">
+        <MappingFragment StoreEntitySet="ConceptoPpto">
+          <ScalarProperty Name="orden" ColumnName="orden" />
+          <ScalarProperty Name="tipoInformacion" ColumnName="tipoInformacion" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_Escenarioppto" ColumnName="id_Escenarioppto" />
+          <ScalarProperty Name="id_concepto" ColumnName="id_concepto" />
+          <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+          <ScalarProperty Name="id_contrato" ColumnName="id_contrato" />
+          <ScalarProperty Name="id_localizacion" ColumnName="id_localizacion" />
+          <ScalarProperty Name="id_contratofase" ColumnName="id_contratofase" />
+          <ScalarProperty Name="id_fase" ColumnName="id_fase" />
+          <ScalarProperty Name="id_escenario" ColumnName="id_escenario" />
+          <ScalarProperty Name="id_ppto" ColumnName="id_ppto" />
+          <ScalarProperty Name="id_contratolocalizacion" ColumnName="id_contratolocalizacion" />
+          <ScalarProperty Name="Mes" ColumnName="Mes" />
+          <ScalarProperty Name="Vigencia" ColumnName="Vigencia" />
+          <ScalarProperty Name="valor" ColumnName="valor" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+          <ScalarProperty Name="usu_crea" ColumnName="usu_crea" />
+          <ScalarProperty Name="usu_modifica" ColumnName="usu_modifica" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contrato">
+      <EntityTypeMapping TypeName="MAPLE.Contrato">
+        <MappingFragment StoreEntitySet="Contrato">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Contrato1" ColumnName="Contrato" />
+          <ScalarProperty Name="FecIni" ColumnName="FecIni" />
+          <ScalarProperty Name="FecFin" ColumnName="FecFin" />
+          <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+          <ScalarProperty Name="Prospecto" ColumnName="Prospecto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContratoFase">
+      <EntityTypeMapping TypeName="MAPLE.ContratoFase">
+        <MappingFragment StoreEntitySet="ContratoFase">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_contrato" ColumnName="id_contrato" />
+          <ScalarProperty Name="id_fase" ColumnName="id_fase" />
+          <ScalarProperty Name="Condiciones" ColumnName="Condiciones" />
+          <ScalarProperty Name="TarifaPAciente" ColumnName="TarifaPAciente" />
+          <ScalarProperty Name="NroPAcientes" ColumnName="NroPAcientes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContratoLocalizacion">
+      <EntityTypeMapping TypeName="MAPLE.ContratoLocalizacion">
+        <MappingFragment StoreEntitySet="ContratoLocalizacion">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_contrato" ColumnName="id_contrato" />
+          <ScalarProperty Name="id_localizacion" ColumnName="id_localizacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Escenario">
+      <EntityTypeMapping TypeName="MAPLE.Escenario">
+        <MappingFragment StoreEntitySet="Escenario">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EscenarioPpto">
+      <EntityTypeMapping TypeName="MAPLE.EscenarioPpto">
+        <MappingFragment StoreEntitySet="EscenarioPpto">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_escenario" ColumnName="id_escenario" />
+          <ScalarProperty Name="id_presupuesto" ColumnName="id_presupuesto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fase">
+      <EntityTypeMapping TypeName="MAPLE.Fase">
+        <MappingFragment StoreEntitySet="Fase">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Localizacion">
+      <EntityTypeMapping TypeName="MAPLE.Localizacion">
+        <MappingFragment StoreEntitySet="Localizacion">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="coddpto" ColumnName="coddpto" />
+          <ScalarProperty Name="NomDpto" ColumnName="NomDpto" />
+          <ScalarProperty Name="ISODpto" ColumnName="ISODpto" />
+          <ScalarProperty Name="CodMun" ColumnName="CodMun" />
+          <ScalarProperty Name="NomMun" ColumnName="NomMun" />
+          <ScalarProperty Name="id_pais" ColumnName="id_pais" />
+          <ScalarProperty Name="Operacion" ColumnName="Operacion" />
+          <ScalarProperty Name="fecha_crea" ColumnName="fecha_crea" />
+          <ScalarProperty Name="fecha_modifica" ColumnName="fecha_modifica" />
+          <ScalarProperty Name="usuario_crea" ColumnName="usuario_crea" />
+          <ScalarProperty Name="usuario_modifica" ColumnName="usuario_modifica" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pais">
+      <EntityTypeMapping TypeName="MAPLE.Pais">
+        <MappingFragment StoreEntitySet="Pais">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="codISO" ColumnName="codISO" />
+          <ScalarProperty Name="fecha_crea" ColumnName="fecha_crea" />
+          <ScalarProperty Name="fecha_modifica" ColumnName="fecha_modifica" />
+          <ScalarProperty Name="usuario_crea" ColumnName="usuario_crea" />
+          <ScalarProperty Name="usuario_modifica" ColumnName="usuario_modifica" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Parametro">
+      <EntityTypeMapping TypeName="MAPLE.Parametro">
+        <MappingFragment StoreEntitySet="Parametro">
+          <ScalarProperty Name="id_ppto" ColumnName="id_ppto" />
+          <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ValorStr" ColumnName="ValorStr" />
+          <ScalarProperty Name="ValorNum" ColumnName="ValorNum" />
+          <ScalarProperty Name="ValorDate" ColumnName="ValorDate" />
+          <ScalarProperty Name="fecha_crea" ColumnName="fecha_crea" />
+          <ScalarProperty Name="fecha_modifica" ColumnName="fecha_modifica" />
+          <ScalarProperty Name="usuario_crea" ColumnName="usuario_crea" />
+          <ScalarProperty Name="usuario_modifica" ColumnName="usuario_modifica" />
+          <ScalarProperty Name="id_fase" ColumnName="id_fase" />
+          <ScalarProperty Name="id_escenario" ColumnName="id_escenario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Perfil">
+      <EntityTypeMapping TypeName="MAPLE.Perfil">
+        <MappingFragment StoreEntitySet="Perfil">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="fecha_crea" ColumnName="fecha_crea" />
+          <ScalarProperty Name="fecha_modifica" ColumnName="fecha_modifica" />
+          <ScalarProperty Name="usuario_crea" ColumnName="usuario_crea" />
+          <ScalarProperty Name="usuario_modifica" ColumnName="usuario_modifica" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ppto">
+      <EntityTypeMapping TypeName="MAPLE.Ppto">
+        <MappingFragment StoreEntitySet="Ppto">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="AInicial" ColumnName="AInicial" />
+          <ScalarProperty Name="AFinal" ColumnName="AFinal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="MAPLE.Usuarios">
+        <MappingFragment StoreEntitySet="Usuarios">
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Bloqueado" ColumnName="Bloqueado" />
+          <ScalarProperty Name="Fecha_Password" ColumnName="Fecha_Password" />
+          <ScalarProperty Name="Fecha_Creacion" ColumnName="Fecha_Creacion" />
+          <ScalarProperty Name="Fecha_Modificacion" ColumnName="Fecha_Modificacion" />
+          <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Token" ColumnName="Token" />
+          <ScalarProperty Name="fecha_crea" ColumnName="fecha_crea" />
+          <ScalarProperty Name="fecha_modifica" ColumnName="fecha_modifica" />
+          <ScalarProperty Name="usuario_crea" ColumnName="usuario_crea" />
+          <ScalarProperty Name="usuario_modifica" ColumnName="usuario_modifica" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RESULPPTO">
+      <EntityTypeMapping TypeName="MAPLE.RESULPPTO">
+        <MappingFragment StoreEntitySet="RESULPPTO">
+          <ScalarProperty Name="orden" ColumnName="orden" />
+          <ScalarProperty Name="tipoinformacion" ColumnName="tipoinformacion" />
+          <ScalarProperty Name="grupo" ColumnName="grupo" />
+          <ScalarProperty Name="mes" ColumnName="mes" />
+          <ScalarProperty Name="anio" ColumnName="anio" />
+          <ScalarProperty Name="Ppto" ColumnName="Ppto" />
+          <ScalarProperty Name="Escenario" ColumnName="Escenario" />
+          <ScalarProperty Name="id_concepto" ColumnName="id_concepto" />
+          <ScalarProperty Name="id_localizacion" ColumnName="id_localizacion" />
+          <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+          <ScalarProperty Name="id_ppto" ColumnName="id_ppto" />
+          <ScalarProperty Name="id_escenario" ColumnName="id_escenario" />
+          <ScalarProperty Name="id_contrato" ColumnName="id_contrato" />
+          <ScalarProperty Name="id_fase" ColumnName="id_fase" />
+          <ScalarProperty Name="concepto" ColumnName="concepto" />
+          <ScalarProperty Name="concept" ColumnName="concept" />
+          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+          <ScalarProperty Name="departamento" ColumnName="departamento" />
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="Contrato" ColumnName="Contrato" />
+          <ScalarProperty Name="Fase" ColumnName="Fase" />
+          <ScalarProperty Name="mesant6" ColumnName="mesant6" />
+          <ScalarProperty Name="mesant5" ColumnName="mesant5" />
+          <ScalarProperty Name="mesant4" ColumnName="mesant4" />
+          <ScalarProperty Name="mesant3" ColumnName="mesant3" />
+          <ScalarProperty Name="mesant2" ColumnName="mesant2" />
+          <ScalarProperty Name="mesant1" ColumnName="mesant1" />
+          <ScalarProperty Name="mes1" ColumnName="mes1" />
+          <ScalarProperty Name="mes2" ColumnName="mes2" />
+          <ScalarProperty Name="mes3" ColumnName="mes3" />
+          <ScalarProperty Name="mes4" ColumnName="mes4" />
+          <ScalarProperty Name="mes5" ColumnName="mes5" />
+          <ScalarProperty Name="mes6" ColumnName="mes6" />
+          <ScalarProperty Name="mes7" ColumnName="mes7" />
+          <ScalarProperty Name="mes8" ColumnName="mes8" />
+          <ScalarProperty Name="mes9" ColumnName="mes9" />
+          <ScalarProperty Name="mes10" ColumnName="mes10" />
+          <ScalarProperty Name="mes11" ColumnName="mes11" />
+          <ScalarProperty Name="mes12" ColumnName="mes12" />
+          <ScalarProperty Name="mes13" ColumnName="mes13" />
+          <ScalarProperty Name="mes14" ColumnName="mes14" />
+          <ScalarProperty Name="mes15" ColumnName="mes15" />
+          <ScalarProperty Name="mes16" ColumnName="mes16" />
+          <ScalarProperty Name="mes17" ColumnName="mes17" />
+          <ScalarProperty Name="mes18" ColumnName="mes18" />
+          <ScalarProperty Name="mes19" ColumnName="mes19" />
+          <ScalarProperty Name="mes20" ColumnName="mes20" />
+          <ScalarProperty Name="mes21" ColumnName="mes21" />
+          <ScalarProperty Name="mes22" ColumnName="mes22" />
+          <ScalarProperty Name="mes23" ColumnName="mes23" />
+          <ScalarProperty Name="mes24" ColumnName="mes24" />
+          <ScalarProperty Name="mes25" ColumnName="mes25" />
+          <ScalarProperty Name="mes26" ColumnName="mes26" />
+          <ScalarProperty Name="mes27" ColumnName="mes27" />
+          <ScalarProperty Name="mes28" ColumnName="mes28" />
+          <ScalarProperty Name="mes29" ColumnName="mes29" />
+          <ScalarProperty Name="mes30" ColumnName="mes30" />
+          <ScalarProperty Name="mes31" ColumnName="mes31" />
+          <ScalarProperty Name="mes32" ColumnName="mes32" />
+          <ScalarProperty Name="mes33" ColumnName="mes33" />
+          <ScalarProperty Name="mes34" ColumnName="mes34" />
+          <ScalarProperty Name="mes35" ColumnName="mes35" />
+          <ScalarProperty Name="mes36" ColumnName="mes36" />
+          <ScalarProperty Name="mes37" ColumnName="mes37" />
+          <ScalarProperty Name="mes38" ColumnName="mes38" />
+          <ScalarProperty Name="mes39" ColumnName="mes39" />
+          <ScalarProperty Name="mes40" ColumnName="mes40" />
+          <ScalarProperty Name="mes41" ColumnName="mes41" />
+          <ScalarProperty Name="mes42" ColumnName="mes42" />
+          <ScalarProperty Name="mes43" ColumnName="mes43" />
+          <ScalarProperty Name="mes44" ColumnName="mes44" />
+          <ScalarProperty Name="mes45" ColumnName="mes45" />
+          <ScalarProperty Name="mes46" ColumnName="mes46" />
+          <ScalarProperty Name="mes47" ColumnName="mes47" />
+          <ScalarProperty Name="mes48" ColumnName="mes48" />
+          <ScalarProperty Name="mes49" ColumnName="mes49" />
+          <ScalarProperty Name="mes50" ColumnName="mes50" />
+          <ScalarProperty Name="mes51" ColumnName="mes51" />
+          <ScalarProperty Name="mes52" ColumnName="mes52" />
+          <ScalarProperty Name="mes53" ColumnName="mes53" />
+          <ScalarProperty Name="mes54" ColumnName="mes54" />
+          <ScalarProperty Name="mes55" ColumnName="mes55" />
+          <ScalarProperty Name="mes56" ColumnName="mes56" />
+          <ScalarProperty Name="mes57" ColumnName="mes57" />
+          <ScalarProperty Name="mes58" ColumnName="mes58" />
+          <ScalarProperty Name="mes59" ColumnName="mes59" />
+          <ScalarProperty Name="mes60" ColumnName="mes60" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InsumosCext">
+      <EntityTypeMapping TypeName="MAPLE.InsumosCext">
+        <MappingFragment StoreEntitySet="InsumosCext">
+          <ScalarProperty Name="usuario_modifica" ColumnName="usuario_modifica" />
+          <ScalarProperty Name="usuario_crea" ColumnName="usuario_crea" />
+          <ScalarProperty Name="fecha_modifica" ColumnName="fecha_modifica" />
+          <ScalarProperty Name="fecha_crea" ColumnName="fecha_crea" />
+          <ScalarProperty Name="psicologia" ColumnName="psicologia" />
+          <ScalarProperty Name="nutricion" ColumnName="nutricion" />
+          <ScalarProperty Name="tRespiratorio" ColumnName="tRespiratorio" />
+          <ScalarProperty Name="somnlogo" ColumnName="somnlogo" />
+          <ScalarProperty Name="mExperto" ColumnName="mExperto" />
+          <ScalarProperty Name="presentacion" ColumnName="presentacion" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InsumosDx">
+      <EntityTypeMapping TypeName="MAPLE.InsumosDx">
+        <MappingFragment StoreEntitySet="InsumosDx">
+          <ScalarProperty Name="usuario_modifica" ColumnName="usuario_modifica" />
+          <ScalarProperty Name="usuario_crea" ColumnName="usuario_crea" />
+          <ScalarProperty Name="fecha_modifica" ColumnName="fecha_modifica" />
+          <ScalarProperty Name="fecha_crea" ColumnName="fecha_crea" />
+          <ScalarProperty Name="nivel2" ColumnName="nivel2" />
+          <ScalarProperty Name="autoTitutacion" ColumnName="autoTitutacion" />
+          <ScalarProperty Name="poligrafia" ColumnName="poligrafia" />
+          <ScalarProperty Name="nd" ColumnName="nd" />
+          <ScalarProperty Name="titulacion" ColumnName="titulacion" />
+          <ScalarProperty Name="basl_leves" ColumnName="basl_leves" />
+          <ScalarProperty Name="presentacion" ColumnName="presentacion" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ConceptosPorTipoReporte">
+      <EntityTypeMapping TypeName="MAPLE.ConceptosPorTipoReporte">
+        <MappingFragment StoreEntitySet="ConceptosPorTipoReporte">
+          <ScalarProperty Name="orden" ColumnName="orden" />
+          <ScalarProperty Name="subGrupo" ColumnName="subGrupo" />
+          <ScalarProperty Name="Grupo" ColumnName="Grupo" />
+          <ScalarProperty Name="conceptoId" ColumnName="conceptoId" />
+          <ScalarProperty Name="tipoReporteId" ColumnName="tipoReporteId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoReporte">
+      <EntityTypeMapping TypeName="MAPLE.TipoReporte">
+        <MappingFragment StoreEntitySet="TipoReporte">
+          <ScalarProperty Name="deshabilitado" ColumnName="deshabilitado" />
+          <ScalarProperty Name="esFinanciero" ColumnName="esFinanciero" />
+          <ScalarProperty Name="usuario_modifica" ColumnName="usuario_modifica" />
+          <ScalarProperty Name="usuario_crea" ColumnName="usuario_crea" />
+          <ScalarProperty Name="fecha_modifica" ColumnName="fecha_modifica" />
+          <ScalarProperty Name="fecha_crea" ColumnName="fecha_crea" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoCargaExcel">
+      <EntityTypeMapping TypeName="MAPLE.TipoCargaExcel">
+        <MappingFragment StoreEntitySet="TipoCargaExcel">
+          <ScalarProperty Name="esOperativo" ColumnName="esOperativo" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

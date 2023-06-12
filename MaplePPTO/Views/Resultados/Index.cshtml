@@ -1,0 +1,386 @@
+﻿@model MaplePPTO.ViewModels.ParametroViewModel
+@{
+
+}
+<div class="card card-primary card-outline mt-2" id="app">
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="nav-icon fas fa-chart-pie"></i>
+            Operation Reports
+        </h3>
+
+    </div>
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">DETAILS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">SUMMARY</a>
+            </li>
+            @*<li class="nav-item">
+                    <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#custom-content-below-messages" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="custom-content-below-settings-tab" data-toggle="pill" href="#custom-content-below-settings" role="tab" aria-controls="custom-content-below-settings" aria-selected="false">Settings</a>
+                </li>*@
+        </ul>
+        <div class="tab-content" id="custom-content-below-tabContent">
+            <div class="tab-pane fade active show" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "mainForm" }))
+                {
+                    @Html.HiddenFor(model => model.showMonths, new { @id = "hdnShowMonth" })
+                    <div class="row">
+
+                        <div class="col-12 col-md-3">
+                            <label>Report Type</label>
+                            @Html.DropDownListFor(model => model.TipoReporteId, Model.selectLisReportTypes, new { @class = "form-control", @id = "ddlTiporeporte" })
+
+                            @*<select class="form-control">
+                                    <option value="">SELECT</option>
+                                    <option value="1">MATRIZ PACIENTES</option>
+                                    <option value="2">PACIENTES</option>
+                                    <option value="3">CI DX</option>
+                                    <option value="4">FREC DX</option>
+                                    <option value="5">MASCARAS TTO</option>
+                                    <option value="6">MASCARAS DX</option>
+
+                                </select>*@
+
+                        </div>
+                        <div class="col-12  col-md-3">
+                            <label>Budget</label>
+                            @Html.DropDownListFor(model => model.PresupuestoId, Model.selectListBudgets, new { @class = "form-control", @id = "ddlPresupuesto" })
+                        </div>
+                        <div class="col-12  col-md-3">
+                            <label>Escenarie</label>
+                            @Html.DropDownListFor(model => model.EscenarioId, Model.selectListEscenaries, new { @class = "form-control", @id = "ddlEscenaries" })
+                        </div>
+
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <a class="btn btn-success" id="exportExcelDetail"  href="@Url.Action("DownloadExcel", "Resultados")">Download Excel</a>
+                        </div>
+                        <div class="col-12 col-md-6" style="text-align:end">
+                            <button type="submit" class="btn btn-outline-primary">FILTER REPORT</button>
+                        </div>
+                        <div class="col-12 col-md-6 " style="text-align:end">
+                            <label class="mr-2">Show Months : </label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input rdnShowMonth" type="radio" @(Model.showMonths == 12 ? "checked" : "" ) name="rdnShowMonths" id="inlineRadio1" value="12">
+                                <label class="form-check-label" for="inlineRadio1">12 </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input rdnShowMonth" type="radio" @(Model.showMonths == 24 ? "checked" : "" ) name="rdnShowMonths" id="inlineRadio2" value="24">
+                                <label class="form-check-label" for="inlineRadio2">24</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input rdnShowMonth" type="radio" @(Model.showMonths == 36 ? "checked" : "" ) name="rdnShowMonths" id="inlineRadio3" value="36">
+                                <label class="form-check-label" for="inlineRadio3">36</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input rdnShowMonth" type="radio" @(Model.showMonths == 48 ? "checked" : "" ) name="rdnShowMonths" id="inlineRadio4" value="48">
+                                <label class="form-check-label" for="inlineRadio4">48</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input rdnShowMonth" type="radio" @(Model.showMonths == 60 ? "checked" : "" ) name="rdnShowMonths" id="inlineRadio5" value="60">
+                                <label class="form-check-label" for="inlineRadio5">60</label>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <hr />
+                <div class="">
+                    <table style="font-size:12px" id="example2" class="table table-sm table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    PRESUPUESTO
+                                </th>
+                                <th>
+                                    ESCENARIO
+                                </th>
+                                <th>
+                                    CLIENTE
+                                </th>
+                                <th>
+                                    CIUDAD
+                                </th>
+                                <th>
+                                    CONTRATO
+                                </th>
+                                <th>
+                                    CONCEPTO
+                                </th>
+                                <th>
+                                    FASE
+                                </th>
+                                @if (Model.listHeader != null)
+                                {
+                                    foreach (var item in Model.listHeader)
+                                    {
+                                        <th class="text-uppercase text-nowrap">
+                                            @item
+                                        </th>
+                                    }
+                                }
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (Model.ListReports != null)
+                            {
+                                foreach (var item in Model.ListReports)
+                                {
+                                    <tr>
+                                        <td>@item.Ppto</td>
+                                        <td>@item.Escenario</td>
+                                        <td>@item.Cliente</td>
+                                        <td>@item.ciudad</td>
+                                        <td>@item.Contrato</td>
+                                        <td>@item.concepto</td>
+                                        <td>@item.Fase</td>
+
+                                        @if (Model.mesesFaltantesAnioBase == 6)
+                                        {
+                                            <td class="text-right">@Math.Round(double.Parse(item.mesant6), 0)</td>
+                                        }
+                                        @if (Model.mesesFaltantesAnioBase >= 5)
+                                        {
+                                            <td class="text-right">@Math.Round(double.Parse(item.mesant5), 0)</td>
+                                        }
+                                        @if (Model.mesesFaltantesAnioBase >= 4)
+                                        {
+                                            <td class="text-right">@Math.Round(double.Parse(item.mesant4), 0)</td>
+                                        }
+                                        @if (Model.mesesFaltantesAnioBase >= 3)
+                                        {
+                                            <td class="text-right">@Math.Round(double.Parse(item.mesant3), 0)</td>
+                                        }
+                                        @if (Model.mesesFaltantesAnioBase >= 2)
+                                        {
+                                            <td class="text-right">@Math.Round(double.Parse(item.mesant2), 0)</td>
+                                        }
+                                        @if (Model.mesesFaltantesAnioBase >= 1)
+                                        {
+                                            <td class="text-right">@Math.Round(double.Parse(item.mesant1), 0)</td>
+                                        }
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes1), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes2), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes3), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes4), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes5), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes6), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes7), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes8), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes9), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes10), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes11), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes12), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes13), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes14), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes15), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes16), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes17), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes18), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes19), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes20), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes21), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes22), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes23), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes24), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes25), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes26), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes27), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes28), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes29), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes30), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes31), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes32), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes33), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes34), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes35), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes36), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes37), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes38), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes39), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes40), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes41), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes42), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes43), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes44), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes45), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes46), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes47), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes48), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes49), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes50), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes51), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes52), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes53), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes54), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes55), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes56), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes57), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes58), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes59), 0)</td>
+                                        <td class="text-right">@Math.Round(double.Parse(item.mes60), 0)</td>
+                                    </tr>
+                                }
+                            }
+
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "mainFormSummary" }))
+                {
+                    @Html.HiddenFor(model => model.showMonths, new { @id = "hdnShowMonthSummary" })
+                    <div class="row">
+
+                        <div class="col-12 offset-md-4 col-md-4">
+                            <label>CHOOSE ONE OPTION</label>
+                            <select class="form-control" id="cboOptionFilter">
+                                <option value="">SELECT</option>
+                                <option value="1">CONCEPT</option>
+                                <option value="2">CITY</option>
+                                <option value="3">CLIENT</option>
+                            </select>
+
+                        </div>
+
+
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-12 col-md-6" style="text-align:end">
+                            <button class="btn btn-success" id="btnSummaryReport" type="button">
+                                <span class="spinner-border spinner-border-sm" style="visibility:hidden" role="status" aria-hidden="true"></span>
+                                <span>FILTER SUMMARY REPORT</span>
+                            </button>
+                            @*<button type="button" id="btnSummaryReport" class="btn btn-outline-success">FILTER SUMMARY REPORT</button>*@
+                        </div>
+                        <div class="col-12 col-md-6 " style="text-align:end">
+                            @*<label class="mr-2">Show Months : </label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input rdnShowMonth" type="radio" @(Model.showMonths == 12 ? "checked" : "" ) name="rdnShowMonths" id="inlineRadio1" value="12">
+                                    <label class="form-check-label" for="inlineRadio1">12 </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input rdnShowMonth" type="radio" @(Model.showMonths == 24 ? "checked" : "" ) name="rdnShowMonths" id="inlineRadio2" value="24">
+                                    <label class="form-check-label" for="inlineRadio2">24</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input rdnShowMonth" type="radio" @(Model.showMonths == 36 ? "checked" : "" ) name="rdnShowMonths" id="inlineRadio3" value="36">
+                                    <label class="form-check-label" for="inlineRadio3">36</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input rdnShowMonth" type="radio" @(Model.showMonths == 48 ? "checked" : "" ) name="rdnShowMonths" id="inlineRadio4" value="48">
+                                    <label class="form-check-label" for="inlineRadio4">48</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input rdnShowMonth" type="radio" @(Model.showMonths == 60 ? "checked" : "" ) name="rdnShowMonths" id="inlineRadio5" value="60">
+                                    <label class="form-check-label" for="inlineRadio5">60</label>
+                                </div>*@
+                        </div>
+                    </div>
+                }
+
+                <hr />
+                <div class=" table-responsive">
+                    <table style="font-size:12px" id="gridSummary" class="table table-sm table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    PRESUPUESTO
+                                </th>
+                                <th>
+                                    ESCENARIO
+                                </th>
+                                <th>
+                                    CLIENTE
+                                </th>
+                                <th>
+                                    CIUDAD
+                                </th>
+                                <th>
+                                    CONTRATO
+                                </th>
+                                <th>
+                                    CONCEPTO
+                                </th>
+                                <th>
+                                    FASE
+                                </th>
+                                @if (Model.listHeader != null)
+                                {
+                                    foreach (var item in Model.listHeader)
+                                    {
+                                        <th class="text-uppercase text-nowrap">
+                                            @item
+                                        </th>
+                                    }
+                                }
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+@*@{
+        var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+        serializer.MaxJsonLength = Int32.MaxValue;
+        var jsonModel = serializer.Serialize(Model.ListReports);
+    }*@
+
+@section scripts {
+
+    <!-- DataTables  & Plugins -->
+    <script src="~/Content/template/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/Content/template/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/template/plugins/jszip/jszip.min.js"></script>
+        <script src="~/Content/template/plugins/pdfmake/pdfmake.min.js"></script>
+        <script src="~/Content/template/plugins/pdfmake/vfs_fonts.js"></script>
+        <script src="~/Content/template/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+        <script src="~/Content/template/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+        <script src="~/Content/template/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/3.23.3/minified.js" integrity="sha512-b63duupna1Xsbc6aWWD/rEDGcF6j7feadPuMBMIM6KHDtep4D8CHSJNc3jcjIuIwvUWojtNXKLCTAwBw7wV2eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/TableExport/5.2.0/js/tableexport.min.js" integrity="sha512-XmZS54be9JGMZjf+zk61JZaLZyjTRgs41JLSmx5QlIP5F+sSGIyzD2eJyxD4K6kGGr7AsVhaitzZ2WTfzpsQzg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+                //variables javaScript globales
+                const lastShowMonthValue = '@Model.showMonths';
+                const totalColumns = '@(Model.listHeader == null ? 0 : Model.listHeader.Count)'
+                const mesesFaltantes = '@Model.mesesFaltantesAnioBase';
+                const urlFilterClient = '@Url.Action("FilterClientByName", "Compartido")';
+                const urlFilterConcept = '@Url.Action("FilterConcetByName", "Compartido")';
+                const urlFilterCity = '@Url.Action("FilterCityByName", "Compartido")';
+        const urlGetSummaryOperationReport = '@Url.Action("SummaryOperationReport", "Resultados")';
+        const urlDetailsOperationReport = '@Url.Action("DetailsOperationReport", "Resultados")';
+
+                //const listDetail =  Html.Raw(Json.Encode(Model.ListReports));
+                //const listDetail = Html.Raw(jsonModel);
+
+    </script>
+    <script src="~/Scripts/operationReport/operationReport.js"></script>
+}
