@@ -54,7 +54,7 @@ namespace MaplePPTO.Models.Dapper
                 parameters.Add("@escenarioID", model.EscenarioId);
                 var oResponse = await connection.QueryAsync<ResultPpto>("dbo.sp_GenerarReportes", parameters, commandType: System.Data.CommandType.StoredProcedure);
 
-                response.reports = oResponse.ToList();
+                response.reports = oResponse?.ToList() ?? new List<ResultPpto>();
             }
             return response;
         }        
@@ -67,9 +67,9 @@ namespace MaplePPTO.Models.Dapper
                 parameters.Add("@tipoReporteId", model.TipoReporteId);
                 parameters.Add("@presupuestoId", model.PresupuestoId);
                 parameters.Add("@escenarioID", model.EscenarioId);
-                var oResponse = await connection.QueryAsync<ResultPpto>("dbo.sp_GenerarReportesFinanciero", parameters, commandType: System.Data.CommandType.StoredProcedure);
+                var oResponse = await connection.QueryAsync<ResultPptoFinancieroVm>("dbo.sp_GenerarReportesFinanciero", parameters, commandType: System.Data.CommandType.StoredProcedure);
 
-                response.reports = oResponse.ToList();
+                response.resultFinanciero = oResponse?.ToList() ?? new List<ResultPptoFinancieroVm>();
             }
             return response;
         }

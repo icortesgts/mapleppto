@@ -45,6 +45,13 @@
                         </div>
 
                     </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="progress">
+                                <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">0 %</div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row mt-2">
                         <div class="col-12">
                             <div class="table-responsive">
@@ -93,7 +100,7 @@
                                 </table>
                             </div>
 
-                            <a href="@Url.Action("SaveBulkPppto", "ProyeccionPacientes")" class="float" id="saveChanges">
+                            <a href="@Url.Action("SaveBulkPppto", "ProyeccionPacientes")" class="float" id="saveChanges" style="z-index:999;">
 
                                 <span style="font-weight:bold;font-size:12px">SAVE</span> <i class="fa fa-pen my-float"></i>
 
@@ -107,33 +114,40 @@
                 <form id="loadExcelForm">
                     <div class="row">
                         @*<div class="col-12 col-md-2">
-                                <a href="@Url.Action("Create", "ProyeccionPacientes")">
-                                    <span>Create New </span>
-                                    <i class="fas fa-solid fa-plus"></i>
-                                </a>
-                            </div>*@
+                <a href="@Url.Action("Create", "ProyeccionPacientes")">
+                    <span>Create New </span>
+                    <i class="fas fa-solid fa-plus"></i>
+                </a>
+            </div>*@
                         <div class="col-12 col-md-12">
                             <label>Input document excel type</label>
-                            @Html.DropDownListFor(model => model.PresupuestoId, Model.selectExcelTypes, new { @class = "form-control", @id = "ddlTipo" })
+                            @Html.DropDownListFor(model => model.tipoInformacion, Model.selectExcelTypes, new { @class = "form-control", @id = "ddlTipo" })
                             @*<select class="form-control" id="ddlTipo">
-                                    <option value="1">Carga Pacientes</option>
-                                    <option value="2">Clientes Nuevos</option>
-                                </select>*@
+                    <option value="1">Carga Pacientes</option>
+                    <option value="2">Clientes Nuevos</option>
+                </select>*@
 
                         </div>
                         <div class="col-12 col-md-12">
                             <label>Budget</label>
-                            @Html.DropDownListFor(model => model.PresupuestoId, Model.selectListBudgets, new { @class = "form-control", @id = "ddlBudgets" })
+                            @Html.DropDownListFor(model => model.PresupuestoId, Model.selectListBudgets, new { @class = "form-control", @id = "ddlBudgetsExcel" })
                         </div>
                         <div class="col-12  col-md-12">
                             <label>Escenarie</label>
-                            @Html.DropDownListFor(model => model.EscenarioId, Model.selectListEscenaries, new { @class = "form-control", @id = "ddlEscenaries" })
+                            @Html.DropDownListFor(model => model.EscenarioId, Model.selectListEscenaries, new { @class = "form-control", @id = "ddlEscenariesExcel" })
                         </div>
                         <div class="col-12  col-md-12">
                             <label>Select excel document</label>
                             <input type="file" id="flAdjuntar" class="form-control-file" />
                         </div>
 
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="progress">
+                                <div id="progressBar-2" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">0 %</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-8 col-md-2">
@@ -179,7 +193,8 @@
 
 @section scripts {
     <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         const urlLoadExcel = '@Url.Action("CargarExcel", "ProyeccionPacientes")';
         const urlList = '@Url.Action("Index", "ProyeccionPacientes")';
@@ -187,11 +202,89 @@
         const urlFilterConcept = '@Url.Action("FilterConcetByName", "Compartido")';
         const urlFilterCity = '@Url.Action("FilterCityByName", "Compartido")';
         const urlCalculateBase = '@Url.Action("CalculateBase", "Compartido")';
+        const urlCalculateLoader = '@Url.Action("CalculateLoader", "Compartido")';
         let listToSave = [];
+
+        let timer = '';
+
+        const loader = {
+            PresupuestoId: 0,
+            EscenarioId: 0,
+            meta:0,
+            seconds: 5000,
+            iteration: 0,
+            porcentaje: 0,
+            fromExcel: 0,
+            idElemento: 'progressBar',
+            loading:false,
+            updateLoader: () => {
+                clearInterval(timer);
+                timer = null;
+                const url = `${urlCalculateLoader}?PresupuestoId=${loader.PresupuestoId}&EscenarioId=${loader.EscenarioId}&meta=${loader.meta}`
+
+                axios.get(url).then(({ data }) => {
+
+                    console.log(data);
+                    loader.meta = data.meta;
+                    let porcentaje = parseFloat(data.porcentaje).toFixed(2);
+
+                    const progressBar = document.getElementById(loader.idElemento);
+                    progressBar.innerText = porcentaje + " %";
+                    progressBar.style.width = porcentaje + "%";
+                    progressBar.aria_valuenow = porcentaje;
+
+                    if (data.porcentaje < 99) {
+                        if (loader.porcentaje == porcentaje) loader.iteration++;
+
+                        if (loader.iteration < 5) {
+                            loader.porcentaje = porcentaje;
+                            timer = setInterval(loader.reloadData, loader.seconds);
+                        }
+
+                    }
+
+                });
+            },
+            reloadData: () => loader.updateLoader(),
+            runProccess: () => {
+                loader.loading = true;
+                loader.idElemento = loader.fromExcel != 0 ? "progressBar-2" : "progressBar"
+                const progressBar = document.getElementById(loader.idElemento);
+                progressBar.classList.remove('bg-secondary');
+                progressBar.classList.add('progress-bar-animated');
+                progressBar.innerText = 0 + " %";
+                progressBar.style.width = 0 + "%";
+                progressBar.aria_valuenow = 0;
+                timer = setInterval(loader.reloadData, loader.seconds);
+            },
+            stopProccess: () => {
+                loader.loading = false;
+                clearInterval(timer);
+                timer = null;
+
+                const progressBar = document.getElementById(loader.idElemento);
+                progressBar.innerText = 100 + " %";
+                progressBar.style.width = 100 + "%";
+                progressBar.aria_valuenow = 100;
+                progressBar.classList.remove('progress-bar-animated');
+                progressBar.classList.add('bg-secondary');
+            }
+
+        };
+
+
+
+
+
+
         $(function () {
             updateAutocomplete();
             $("#loadingicon").hide();
+
+
             $('#btnCargarExcel').on('click', function () {
+
+                if (loader.loading) return false;
                 $("#loadingicon").show();
 
                 // Checking whether FormData is available in browser  
@@ -208,10 +301,19 @@
                         fileData.append(files[i].name, files[i]);
                     }
 
+                    let PresupuestoId = document.getElementById("ddlBudgetsExcel").value;
+                    let EscenarioId = document.getElementById("ddlEscenariesExcel").value;
+                    let TipoID = document.getElementById("ddlEscenaries").value;
+
                     // Adding one more key to FormData object  
-                    fileData.append('PresupuestoId', $("#ddlBudgets").val());
-                    fileData.append('EscenarioId', $("#ddlEscenaries").val());
-                    fileData.append('TipoID', $("#ddlTipo").val());
+                    fileData.append('PresupuestoId', PresupuestoId);
+                    fileData.append('EscenarioId', EscenarioId);
+                    fileData.append('TipoID', TipoID);
+
+                    loader.EscenarioId = EscenarioId;
+                    loader.PresupuestoId = PresupuestoId;
+                    loader.fromExcel = 1;
+                    //loader.runProccess();
 
                     $.ajax({
                         url: urlLoadExcel,
@@ -225,12 +327,14 @@
 
                         },
                         success: function (data) {
+                            loader.stopProccess();
                             console.log(data);
                             $("#loadingicon").hide();
                             if (data.model.Code > 0) {
                                 alert("Error :"+ data.model.Message);
                             } else {
-                                alert("los datos de cargaron correctamente");
+                                let mensaje = `Data saved successfully \n ${(data.model.Message != "" ? data.model.Message:"")}`
+                                alert(mensaje);
                                 location.href = urlList;
                             }
 
@@ -238,10 +342,12 @@
                         },
                         error: function (err) {
                             /*$('#loader').addClass('d-none');*/
+                            loader.stopProccess();
                             $("#loadingicon").hide();
                             alert(err.statusText);
                         }
                     });
+                    loader.runProccess();
                 } else {
                     $("#loadingicon").hide();
                     alert("FormData is not supported.");
@@ -283,6 +389,7 @@
 
         $('#btnCalculate').on('click', (ev) => {
 
+            if (loader.loading) return false;
             $('button').prop('disabled', true);
 
             const loading = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`;
@@ -299,6 +406,10 @@
             const escenario = document.getElementById("ddlEscenaries");
             const PresupuestoId = presupuesto.value;
             const EscenarioId = escenario.value;
+            loader.EscenarioId = EscenarioId;
+            loader.PresupuestoId = PresupuestoId;
+            loader.fromExcel = 0;
+            loader.runProccess();
 
             fetch(urlCalculateBase, {
                 method: 'POST',
@@ -308,6 +419,7 @@
                 }
             }).then(res => res.json())
                 .then(response => {
+                    loader.stopProccess();
                     $('#btnCalculate').html(valueText);
                     $('button').prop('disabled', false);
                     if (response.errorCode == 0) {
@@ -326,6 +438,7 @@
                     }
                 })
                 .catch(error => {
+                    loader.stopProccess();
                     $('#btnCalculate').html(valueText);
                     $('button').prop('disabled', false);
                     Swal.fire(
@@ -333,6 +446,7 @@
                         '',
                         'error')
                 });
+  
         });
 
         function removeItem(event) {
@@ -474,6 +588,9 @@
         $('#saveChanges').on('click', function () {
 
             event.preventDefault();
+
+            if (loader.loading) return false;
+
             let url = event.currentTarget.href;
             const table = document.querySelectorAll('#gridProy tbody tr');
             const ppto = document.getElementById('ddlBudgets');
@@ -506,9 +623,13 @@
             if (listToSave.length > 0) {
 
 
-                swal.fire({
-                    html: '<i class="fas fa-3x fa-sync-alt fa-spin"></i> <div class="text-bold pt-2">Loading...</div>',
-                });
+                //swal.fire({
+                //    html: '<i class="fas fa-3x fa-sync-alt fa-spin"></i> <div class="text-bold pt-2">Loading...</div>',
+                //});
+                loader.EscenarioId = esc?.value;
+                loader.PresupuestoId = ppto?.value;
+                loader.fromExcel = 0;
+                loader.runProccess();
 
                 fetch(url, {
                     method: 'POST',
@@ -519,6 +640,7 @@
                 })
                     .then(res => res.json())
                     .then(response => {
+                        loader.stopProccess();
                         if (response.errorCode == 0) {
                             Swal.fire(
                                 'Success!',
@@ -529,12 +651,13 @@
                             //setTimeout(() => location.reload(true), 2000);
                         } else {
                             Swal.fire(
-                                response.message,
+                                response.merror,
                                 '',
                                 'error');
                         }
                     })
                     .catch(error => {
+                        loader.stopProccess();
                         Swal.fire(
                             error.message,
                             '',

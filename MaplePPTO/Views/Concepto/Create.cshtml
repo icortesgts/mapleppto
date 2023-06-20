@@ -1,7 +1,7 @@
 ﻿@model MaplePPTO.Models.Concepto
 
 
-<h1 class="m-0">Create Conceto</h1>
+<h2 class="m-0">CREATE CONCEPT</h2>
 <div class="card">
     @*<div class="card-header">
             <h3 class="card-title">DataTable with default features</h3>
@@ -17,50 +17,55 @@
             @Html.AntiForgeryToken()
 
             <div class="form-horizontal">
-                <h4>Concepto</h4>
-                <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="text-danger">@ViewBag.validation</h4>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Name</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control",@required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Entrada, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <div class="checkbox">
-                            @Html.EditorFor(model => model.Entrada)
-                            @Html.ValidationMessageFor(model => model.Entrada, "", new { @class = "text-danger" })
-                        </div>
+            <div class="form-group">
+ 
+                <label class="control-label col-md-2">Entry</label>
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Entrada)
+                        @Html.ValidationMessageFor(model => model.Entrada, "", new { @class = "text-danger" })
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.TipoPpto, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.TipoPpto, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.TipoPpto, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Budget Type</label>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(x => x.TipoPpto, new List<SelectListItem>
+                                            {
+                                            new SelectListItem() {Text = "Operativo", Value="Operativo"},
+                                            new SelectListItem() {Text = "Financiero", Value="Financiero"}
+                                            
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.id_fase, "id_fase", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("id_fase", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.id_fase, "", new { @class = "text-danger" })
-                    </div>
+                                            }, new { @class = "form-control" })
+
+                    @Html.ValidationMessageFor(model => model.TipoPpto, "", new { @class = "text-danger" })
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Phase</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("id_fase", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.id_fase, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">

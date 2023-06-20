@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<MaplePPTO.Models.Localizacion>
 
-<h1 class="m-0">Listado Localización</h1>
+<h1 class="m-0">LOCATION LIST</h1>
 <div class="card">
     @*<div class="card-header">
             <h3 class="card-title">DataTable with default features</h3>
@@ -10,7 +10,7 @@
         <p>
 
             <a href="@Url.Action("Create", "Localizacion")">
-                <span>Create New </span>
+                <span>CREATE NEW </span>
                 <i class="fas fa-solid fa-plus"></i>
             </a>
         </p>
@@ -29,14 +29,14 @@
                             ISO CODE
                         </th>
                         <th>
-                            TOWN CODE
+                            MUNICIPALITY CODE
                         </th>
                         <th>
-                            TOWN
+                            MUNICIPALITY
                         </th>
-                        <th>
+                        @*<th>
                             OPERATION
-                        </th>
+                        </th>*@
 
                         <th></th>
                     </tr>
@@ -61,14 +61,14 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.NomMun)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Operacion)
-                            </td>
+                            @*<td>
+                                
+                            </td>*@
                             <td>
                                 @*@Html.ActionLink("Edit", "Edit", new { id = item.id }) |
         @Html.ActionLink("Details", "Details", new { id = item.id }) |*@
                                 @*@Html.ActionLink("Delete", "Delete", new { id = item.id })*@
-                                <a class="deleteFromList" href="@Url.Action("Delete","Presupuesto",new { id=item.id })"> <i class="fas fa-solid fa-trash"></i> </a>
+                                <a class="deleteFromList" href="@Url.Action("Delete","Localizacion",new { id=item.id })"> <i class="fas fa-solid fa-trash"></i> </a>
                             </td>
                         </tr>
                     }
@@ -105,68 +105,68 @@
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "buttons": ["csv", "excel"]
             }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
 
-            $('.deleteFromList').on('click', function (event) {
-                event.preventDefault();
-                let url = event.currentTarget.href;
-
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-
-
-                        swal.fire({
-                            html: '<i class="fas fa-3x fa-sync-alt fa-spin"></i> <div class="text-bold pt-2">Loading...</div>',
-                        });
-
-                        fetch(url, {
-                            method: 'GET',
-                            headers: {
-                                'Content-type': 'application/json; charset=UTF-8' // Indicates the content 
-                            }
-                        })
-                            .then(res => res.json())
-                            .then(response => {
-                                if (response.code == 0) {
-                                    Swal.fire(
-                                        'Deleted!',
-                                        'Your file has been deleted.',
-                                        'success'
-                                    );
-                                    setTimeout(() => location.reload(true), 2000);
-                                } else {
-                                    Swal.fire(
-                                        response.message,
-                                        '',
-                                        'error');
-                                }
-                            })
-                            .catch(error => {
-                                Swal.fire(
-                                    error.message,
-                                    '',
-                                    'error')
-                            });
-
-
-
-                    }
-                })
-
-            });
+            
         });
 
 
+        $('.deleteFromList').on('click', function (event) {
+            event.preventDefault();
+            let url = event.currentTarget.href;
 
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+
+                    swal.fire({
+                        html: '<i class="fas fa-3x fa-sync-alt fa-spin"></i> <div class="text-bold pt-2">Loading...</div>',
+                    });
+
+                    fetch(url, {
+                        method: 'GET',
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8' // Indicates the content 
+                        }
+                    })
+                        .then(res => res.json())
+                        .then(response => {
+                            if (response.code == 0) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                );
+                                setTimeout(() => location.reload(true), 2000);
+                            } else {
+                                Swal.fire(
+                                    response.message,
+                                    '',
+                                    'error');
+                            }
+                        })
+                        .catch(error => {
+                            Swal.fire(
+                                error.message,
+                                '',
+                                'error')
+                        });
+
+
+
+                }
+            })
+
+        });
 
 
 

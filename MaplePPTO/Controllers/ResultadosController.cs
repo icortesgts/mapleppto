@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -31,17 +32,7 @@ namespace MaplePPTO.Controllers
 
             try
             {
-                var response = await percistence.GetReports(model);
-                //model.ListReports = response.reports;//.OrderBy(x=>x.ciudad).ThenBy(x=>x.Cliente).ThenBy(x=>x.anio).ThenBy(x=>x.mes).ToList();
-
-
-                if (response.reports != null && response.reports.Count > 0) //model.ListReports.Count > 0)
-                {
-                    GenerateHeader(model, response.reports);
-                    //model.ListReports = new List<ResultPpto>();
-                    //model.ListReports.Add(new ResultPpto() { Escenario = "loading" });
-
-                }
+                GenerateHeaderOperativo(model);
             }
             catch (Exception e)
             {
@@ -114,14 +105,12 @@ namespace MaplePPTO.Controllers
             {
                 var response = await percistence.GetReports(model);
 
-                var data = DatatoString(response.reports, model.mesesFaltantesAnioBase);
-
                 var jsonResult = Json(new
                 {
                     draw = 1,
-                    recordsTotal = data.Count,
-                    recordsFiltered = data.Count,
-                    data
+                    recordsTotal = response.reports.Count,
+                    recordsFiltered = response.reports.Count,
+                    data = response.reports
                 }, JsonRequestBehavior.AllowGet);
                 jsonResult.MaxJsonLength = int.MaxValue;
 
@@ -409,21 +398,17 @@ namespace MaplePPTO.Controllers
         }
         private void GenerateHeader(ParametroViewModel model, List<ResultPpto> ListReports)
         {
-            var firstData = ListReports.First();
-            var mesesFaltantesAnioBase = (12 - firstData.mes) + 1;
-            var mesesProyeccion = 60;
-            var totalMeses = mesesProyeccion + mesesFaltantesAnioBase;
-            var columnsHeader = new List<string>();
-
-            foreach (var x in Enumerable.Range(0, totalMeses)) // se crea desde cero para tomar el mes actual tambien
+            var resultPpto = ListReports.First();
+            int num = 12 - resultPpto.mes + 1;
+            int count = 60 + num;
+            List<string> stringList = new List<string>();
+            foreach (int months in Enumerable.Range(0, count))
             {
-                var textHeader = new DateTime(firstData.anio, firstData.mes, 1).AddMonths(x).ToString("MMM-y").Replace(".", "");
-                //var keyColumnBody = GenerarTextoHeader(firstData.anio, new DateTime(firstData.anio, firstData.mes, 1).AddMonths(x), x, mesesFaltantesAnioBase);
-                columnsHeader.Add(textHeader);
+                string str = new DateTime(resultPpto.anio, resultPpto.mes, 1).AddMonths(months).ToString("MMM-y").Replace(".", "");
+                stringList.Add(str);
             }
-
-            model.listHeader = columnsHeader;
-            model.mesesFaltantesAnioBase = mesesFaltantesAnioBase;
+            model.listHeader = stringList;
+            model.mesesFaltantesAnioBase = num;
         }
 
         private List<string[]> DatatoString(List<ResultPpto> arr, int mesesFaltantesAnioBase)
@@ -965,5 +950,19 @@ namespace MaplePPTO.Controllers
             }
             return tabla;
         }
+
+        private void GenerateHeaderOperativo(ParametroViewModel model)
+        {
+            var ppto = db.Ppto.Where(x => x.id == model.PresupuestoId).FirstOrDefault();
+            List<string> stringList = new List<string>();
+            foreach (int months in Enumerable.Range(0, 66))
+            {
+                string str = new DateTime(ppto.AInicial - 1, 7, 1).AddMonths(months).ToString("MMM-y").Replace(".", "");
+                stringList.Add(str);
+            }
+            model.listHeader = stringList;
+            model.mesesFaltantesAnioBase = 0;
+        }
+
     }
 }

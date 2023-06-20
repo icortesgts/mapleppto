@@ -1,6 +1,6 @@
 ﻿@model MaplePPTO.Models.Escenario
 
-<h1 class="m-0">Create Escenario</h1>
+<h1 class="m-0">CREATE ESCENERY</h1>
 <div class="card">
     @*<div class="card-header">
             <h3 class="card-title">DataTable with default features</h3>
@@ -17,11 +17,15 @@
             @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Escenario</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-danger">@ViewBag.validation</h4>
+            </div>
+        </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <label class="control-label col-md-2"> Name</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
@@ -29,7 +33,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2"> Description</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })

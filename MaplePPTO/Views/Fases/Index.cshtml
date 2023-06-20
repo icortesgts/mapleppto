@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<MaplePPTO.Models.Fase>
-<h1 class="m-0">Listado Escenarios</h1>
+<h1 class="m-0">PHASE LIST</h1>
 <div class="card">
     @*<div class="card-header">
             <h3 class="card-title">DataTable with default features</h3>
@@ -9,7 +9,7 @@
         <p>
 
             <a href="@Url.Action("Create", "Fases")">
-                <span>Create New </span>
+                <span>CREATE NEW </span>
                 <i class="fas fa-solid fa-plus"></i>
             </a>
         </p>
@@ -19,10 +19,10 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Nombre)
+                        NAME
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Descripcion)
+                        DESCRIPTION
                     </th>
                     <th></th>
                 </tr>
@@ -80,7 +80,7 @@
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "buttons": ["csv", "excel"]
             }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
 
             $('.deleteFromList').on('click', function (event) {

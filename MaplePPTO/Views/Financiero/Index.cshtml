@@ -4,7 +4,10 @@
     var grupos = Model.ListReports?.GroupBy(x => x.grupo).ToDictionary(g => g.Key, g => g.ToList());
     ViewBag.listHeader = Model.listHeader;
 }
-
+@*<link href="~/Content/tabulador/css/tabulator.min.css" rel="stylesheet" />*@
+@*<link href="~/Content/tabulador/css/tabulator_midnight.css" rel="stylesheet" />*@
+<link href="~/Content/tabulador/css/tabulator_simple.min.css" rel="stylesheet" />
+@*<link href="~/Content/tabulador/css/tabulator_bootstrap4.min.css" rel="stylesheet" />*@
 <h1 class="m-0">Financial Reports</h1>
 <div class="card" id="app">
     @*<div class="card-header">
@@ -12,14 +15,14 @@
         </div>*@
     <!-- /.card-header -->
     <div class="card-body">
-        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "mainForm" }))
+        @using (Html.BeginForm(null, null, FormMethod.Get, new { id = "mainForm" }))
         {
             @Html.HiddenFor(model => model.showMonths, new { @id = "hdnShowMonth" })
             <div class="row">
 
                 <div class="col-12 col-md-3">
                     <label>Report Type</label>
-                    @Html.DropDownListFor(model => model.TipoReporteId, Model.selectLisReportTypes, new { @class = "form-control", @id = "ddlBudgets" })
+                    @Html.DropDownListFor(model => model.TipoReporteId, Model.selectLisReportTypes, new { @class = "form-control", @id = "ddlTiporeporte" })
 
                 </div>
                 <div class="col-12  col-md-3">
@@ -36,29 +39,6 @@
                 <div class="col-12 col-md-6" style="text-align:end">
                     <button type="submit" class="btn btn-outline-primary">FILTER REPORT</button>
                 </div>
-                @*<div class="col-12 col-md-6 " style="text-align:end">
-                        <label class="mr-2">Show Months : </label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input rdnShowMonth" type="radio" @(Model.showMonths == 12 ? "checked" : "" ) name="rdnShowMonths" id="inlineRadio1" value="12">
-                            <label class="form-check-label" for="inlineRadio1">12 </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input rdnShowMonth" type="radio" @(Model.showMonths == 24 ? "checked" : "" ) name="rdnShowMonths" id="inlineRadio2" value="24">
-                            <label class="form-check-label" for="inlineRadio2">24</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input rdnShowMonth" type="radio" @(Model.showMonths == 36 ? "checked" : "" ) name="rdnShowMonths" id="inlineRadio3" value="36">
-                            <label class="form-check-label" for="inlineRadio3">36</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input rdnShowMonth" type="radio" @(Model.showMonths == 48 ? "checked" : "" ) name="rdnShowMonths" id="inlineRadio4" value="48">
-                            <label class="form-check-label" for="inlineRadio4">48</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input rdnShowMonth" type="radio" @(Model.showMonths == 60 ? "checked" : "" ) name="rdnShowMonths" id="inlineRadio5" value="60">
-                            <label class="form-check-label" for="inlineRadio5">60</label>
-                        </div>
-                    </div>*@
             </div>
         }
         <p>
@@ -67,32 +47,13 @@
         </p>
         <hr />
 
-        <div class="table-responsive">
-
-
-            @if (grupos != null)
-            {
-                foreach (var item in grupos)
-                {
-                    switch (item.Key)
-                    {
-                        case 1:
-                            <h5 class="font-weight-bold text-primary">REVENUE</h5>
-                            break;
-                        case 2:
-                            <h5 class="font-weight-bold text-primary">DIRECT COST</h5>
-                            break;
-                        case 3:
-                            <h5 class="font-weight-bold text-primary">GENERAL EXPENSES</h5>
-                            break;
-                    }
-
-                    @Html.Partial("_SeccionGrupo", item)
-                    <hr />
-                }
-
-            }
-
+        <hr />
+        <div class="mb-1">
+            <button class="btn btn-sm btn-success" id="download-csv">Download CSV</button>
+            <button class="btn btn-sm btn-success" id="download-json">Download JSON</button>
+            <button class="btn btn-sm btn-success" id="download-xlsx">Download XLSX</button>
+        </div>
+        <div class="" id="example2" style="font-size:13px">
 
         </div>
 
@@ -105,74 +66,19 @@
 @section scripts {
 
     <!-- DataTables  & Plugins -->
-    <script src="~/Content/template/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="~/Content/template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="~/Content/template/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="~/Content/template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="~/Content/template/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="~/Content/template/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="~/Content/template/plugins/jszip/jszip.min.js"></script>
-    <script src="~/Content/template/plugins/pdfmake/pdfmake.min.js"></script>
-    <script src="~/Content/template/plugins/pdfmake/vfs_fonts.js"></script>
-    <script src="~/Content/template/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="~/Content/template/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="~/Content/template/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
+    <script src="~/Content/tabulador/js/tabulator.min.js"></script>
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
     <script>
-        @*const lastShowMonthValue = '@Model.showMonths';
+                //variables javaScript globales
+                
+        const urlGetSummaryOperationReport = '@Url.Action("SummaryOperationReport", "Resultados")';
+        const urlDetailsOperationReport = '@Url.Action("DetailsFinancialReport", "Financiero")';
 
-        const totalColumns = '@(Model.listHeader == null ? 0 : Model.listHeader.Count)'
-        const mesesFaltantes = '@Model.mesesFaltantesAnioBase';
-        //=============================>
-        //-codigo usando librerias Jquery
-        $(function () {
-
-
-            //$('#ddlBudgets').on('change', function () {
-            //    $('#mainForm').submit();
-            //});
-
-            //$('#ddlEscenaries').on('change', function () {
-            //    $('#mainForm').submit();
-            //});
-
-
-            var table = $("#example2").DataTable({
-                "responsive": false,
-                "lengthChange": false,
-                "autoWidth": false,
-                "scrollX": true,
-                "scrollY": 500,
-                "paging": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print"],
-
-            });
-            table.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
-
-            GenColumsShow(lastShowMonthValue);
-
-            $('.rdnShowMonth').on('click', function (event) {
-                console.log("", event.target);
-                $('#hdnShowMonth').val(event.target.value);
-                GenColumsShow(event.target.value);
-            });
-
-            function GenColumsShow(totalColumShow) {
-                let colNumber = (parseInt(totalColumShow) || 12) + 7 + (parseInt(mesesFaltantes) || 0);
-
-                let total = (parseInt(totalColumns) || 0) +7;
-                let colums = [...Array(total).keys()].filter(x => (x > (colNumber - 1)));
-
-                table.columns().visible(true);
-                table.columns(colums).visible(false);
-            }
-
-        });*@
-
-        //-fin codigo usando librerias Jquery
-        //<=============================
-
+        const listHeaderDetail = @Html.Raw(Json.Encode(Model.listHeader));
+        //const listBodyDetail = @Html.Raw(Json.Encode(Model.listHeader));
 
     </script>
+    <script src="~/Scripts/finantialReport/finantialReport.js"></script>
+
 
 }

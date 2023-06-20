@@ -1,46 +1,85 @@
-﻿//=============================>
+﻿const columnHeaderDetail = listHeaderDetail.map((x, index) => {
+    let field = "";
+
+    if (index < 6) field = "mesan" + (6 - index);
+    else field = "mes" + (index - 5);
+
+    return { title: x, field: field, hozAlign: "right" }
+});
+
+const table = new Tabulator("#example2", {
+    height: "400px",
+    //reactiveData: true,
+    data: [], //load data into table
+    //renderHorizontal: "virtual",
+    pagination: "local",
+    paginationSize: 1000,
+    paginationCounter: "rows",
+    columns: [
+        //{ title: "PRESUPUESTO", field: "Ppto" },, frozen: true
+        //{ title: "ESCENARIO", field: "Escenario" },
+        { title: "CLIENTE", field: "Cliente", headerFilter: "input", frozen: true},
+        { title: "CIUDAD", field: "ciudad", headerFilter: "input", frozen: true},
+        //{ title: "CONTRATO", field: "Contrato" },
+        { title: "CONCEPTO", field: "concepto", headerFilter: "input", frozen: true},
+        { title: "FASE", field: "Fase", headerFilter: "input", frozen: true},
+        ...columnHeaderDetail
+    ],
+});
+
+window.addEventListener('load', function (event) {
+
+    GetDataToReportDetail();
+
+    //table.setData("/exampledata/ajax");
+});
+//trigger download of data.csv file
+document.getElementById("download-csv").addEventListener("click", function () {
+    table.download("csv", "data.csv");
+});
+
+//trigger download of data.json file
+document.getElementById("download-json").addEventListener("click", function () {
+    table.download("json", "data.json");
+});
+
+//trigger download of data.xlsx file
+document.getElementById("download-xlsx").addEventListener("click", function () {
+    table.download("xlsx", "data.xlsx", { sheetName: "My Data" });
+});
+const GetDataToReportDetail = () => {
+    const tipoReporte = document.getElementById("ddlTiporeporte");
+    const presupuesto = document.getElementById("ddlPresupuesto");
+    const escenario = document.getElementById("ddlEscenaries");
+    const showMonths = document.getElementById("hdnShowMonth");
+    const model = {
+        PresupuestoId: presupuesto.value,
+        TipoReporteId: tipoReporte.value,
+        EscenarioId: escenario.value,
+        mesesFaltantesAnioBase: mesesFaltantes,
+        showMonths: showMonths.value,
+    };
+
+    fetch(urlDetailsOperationReport, {
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify({model}),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        
+    })
+        .then((response) => response.json())
+        .then(data => {
+            /*tabledata.push(...data.data);*/
+            table.setData(data.data.map(x => genDataReportDetail(x)));
+        })
+        .catch( error => alert(error));
+}
+
+//=============================>
 //-codigo usando librerias Jquery
 
-
 $(function () {
-
-
-    var table = $("#example2").DataTable({
-        "responsive": false,
-        "lengthChange": false,
-        "autoWidth": false,
-        "scrollX": true,
-        "scrollY": 500,
-        "paging": false,
-        "buttons": ["csv", "excel", "pdf", "print"],
-        processing: true,
-        serverSide: false,
-        "ajax": {
-            "url": urlDetailsOperationReport,
-            "type": 'POST',
-            "data": function () {
-
-                const tipoReporte = document.getElementById("ddlTiporeporte");
-                const presupuesto = document.getElementById("ddlPresupuesto");
-                const escenario = document.getElementById("ddlEscenaries");
-                const showMonths = document.getElementById("hdnShowMonth");
-
-                return {
-                    PresupuestoId: presupuesto.value,
-                    TipoReporteId: tipoReporte.value,
-                    EscenarioId: escenario.value,
-                    mesesFaltantesAnioBase: mesesFaltantes,
-                    showMonths: showMonths.value,
-
-                }
-            },
-        }
-
-    });
-
-    /*table.table().buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');*/
-
-    GenColumsShow(table, lastShowMonthValue);
 
     $('.rdnShowMonth').on('click', function (event) {
         console.log("", event.target);
@@ -56,7 +95,7 @@ $(function () {
         "scrollX": true,
         "scrollY": 500,
         "paging": false,
-        "buttons": ["csv", "excel", "pdf", "print"],
+        "buttons": ["csv", "excel"],
         processing: true,
         serverSide: false,
         "ajax": {
@@ -134,19 +173,7 @@ $(function () {
 
 });
 
-$('#exportExcelDetail').on('click', (ev) => {
-    ev.preventDefault();
-    const tipoReporte = document.getElementById("ddlTiporeporte");
-    const presupuesto = document.getElementById("ddlPresupuesto");
-    const escenario = document.getElementById("ddlEscenaries");
-    const showMonths = document.getElementById("hdnShowMonth");
 
-    const url = ev.currentTarget.href
-
-    const params = `?PresupuestoId=${presupuesto.value}&TipoReporteId=${tipoReporte.value}&EscenarioId=${escenario.value}&mesesFaltantesAnioBase=${mesesFaltantes}&showMonths=${showMonths.value}`;
-
-    location.href = `${url}${params}`;
-});
 //-fin codigo usando librerias Jquery
 //<=============================
 
@@ -405,6 +432,88 @@ function htmlToElements(html) {
 
     return template.content.childNodes;
 }
+const genDataReportDetail = (item) => {
+
+    return {
+
+        "Ppto": item.Ppto,
+        "Escenario": item.Escenario,
+        "Cliente": item.Cliente,
+        "ciudad": item.ciudad,
+        "Contrato": "",
+        "concepto": item.concepto,
+        "Fase": item.Fase,
+
+
+        "mesant6": parseFloat(item.mesant6).toFixed(2),
+        "mesant5": parseFloat(item.mesant5).toFixed(2),
+        "mesant4": parseFloat(item.mesant4).toFixed(2),
+        "mesant3": parseFloat(item.mesant3).toFixed(2),
+        "mesant2": parseFloat(item.mesant2).toFixed(2),
+        "mesant1": parseFloat(item.mesant1).toFixed(2),
+
+        "mes1": parseFloat(item.mes1).toFixed(2),
+        "mes2": parseFloat(item.mes2).toFixed(2),
+        "mes3": parseFloat(item.mes3).toFixed(2),
+        "mes4": parseFloat(item.mes4).toFixed(2),
+        "mes5": parseFloat(item.mes5).toFixed(2),
+        "mes6": parseFloat(item.mes6).toFixed(2),
+        "mes7": parseFloat(item.mes7).toFixed(2),
+        "mes8": parseFloat(item.mes8).toFixed(2),
+        "mes9": parseFloat(item.mes9).toFixed(2),
+        "mes10": parseFloat(item.mes10).toFixed(2),
+        "mes11": parseFloat(item.mes11).toFixed(2),
+        "mes12": parseFloat(item.mes12).toFixed(2),
+        "mes13": parseFloat(item.mes13).toFixed(2),
+        "mes14": parseFloat(item.mes14).toFixed(2),
+        "mes15": parseFloat(item.mes15).toFixed(2),
+        "mes16": parseFloat(item.mes16).toFixed(2),
+        "mes17": parseFloat(item.mes17).toFixed(2),
+        "mes18": parseFloat(item.mes18).toFixed(2),
+        "mes19": parseFloat(item.mes19).toFixed(2),
+        "mes20": parseFloat(item.mes20).toFixed(2),
+        "mes21": parseFloat(item.mes21).toFixed(2),
+        "mes22": parseFloat(item.mes22).toFixed(2),
+        "mes23": parseFloat(item.mes23).toFixed(2),
+        "mes24": parseFloat(item.mes24).toFixed(2),
+        "mes25": parseFloat(item.mes25).toFixed(2),
+        "mes26": parseFloat(item.mes26).toFixed(2),
+        "mes27": parseFloat(item.mes27).toFixed(2),
+        "mes28": parseFloat(item.mes28).toFixed(2),
+        "mes29": parseFloat(item.mes29).toFixed(2),
+        "mes30": parseFloat(item.mes30).toFixed(2),
+        "mes31": parseFloat(item.mes31).toFixed(2),
+        "mes32": parseFloat(item.mes32).toFixed(2),
+        "mes33": parseFloat(item.mes33).toFixed(2),
+        "mes34": parseFloat(item.mes34).toFixed(2),
+        "mes35": parseFloat(item.mes35).toFixed(2),
+        "mes36": parseFloat(item.mes36).toFixed(2),
+        "mes37": parseFloat(item.mes37).toFixed(2),
+        "mes38": parseFloat(item.mes38).toFixed(2),
+        "mes39": parseFloat(item.mes39).toFixed(2),
+        "mes40": parseFloat(item.mes40).toFixed(2),
+        "mes41": parseFloat(item.mes41).toFixed(2),
+        "mes42": parseFloat(item.mes42).toFixed(2),
+        "mes43": parseFloat(item.mes43).toFixed(2),
+        "mes44": parseFloat(item.mes44).toFixed(2),
+        "mes45": parseFloat(item.mes45).toFixed(2),
+        "mes46": parseFloat(item.mes46).toFixed(2),
+        "mes47": parseFloat(item.mes47).toFixed(2),
+        "mes48": parseFloat(item.mes48).toFixed(2),
+        "mes49": parseFloat(item.mes49).toFixed(2),
+        "mes50": parseFloat(item.mes50).toFixed(2),
+        "mes51": parseFloat(item.mes51).toFixed(2),
+        "mes52": parseFloat(item.mes52).toFixed(2),
+        "mes53": parseFloat(item.mes53).toFixed(2),
+        "mes54": parseFloat(item.mes54).toFixed(2),
+        "mes55": parseFloat(item.mes55).toFixed(2),
+        "mes56": parseFloat(item.mes56).toFixed(2),
+        "mes57": parseFloat(item.mes57).toFixed(2),
+        "mes58": parseFloat(item.mes58).toFixed(2),
+        "mes59": parseFloat(item.mes59).toFixed(2),
+        "mes60": parseFloat(item.mes60).toFixed(2),
+    }
+}
 
 function gendataFromJSObject(listDetail) {
     try {
@@ -448,3 +557,4 @@ function gendataFromJSObject(listDetail) {
         //element.disabled = false;
     }
 }
+    

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -20,19 +21,23 @@ namespace MaplePPTO.Controllers
             percistence = new CargaMasivaDA();
         }
         // GET: Resultados
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(ParametroViewModel model)
         {
-            var model = new ParametroViewModel();
-            model.PresupuestoId = 1;
-            model.EscenarioId = 1;
-            model.TipoReporteId = 16;
-            model.showMonths = 12;
+            if (model == null || !model.PresupuestoId.HasValue)
+            {
+                model = new ParametroViewModel();
+                model.PresupuestoId = new long?(1L);
+                model.EscenarioId = new long?(1L);
+                model.TipoReporteId = 16;
+                model.showMonths = 12;
+            }
+            GenerateHeaderFinanciero(model);
 
-            var response = await percistence.GetFinancialReports(model);
-            model.ListReports = response.reports; //GroupReportsByClient(response.reports.GroupBy(x => x.Cliente));
+            //var response = await percistence.GetFinancialReports(model);
+            //model.ListReports = response.reports; //GroupReportsByClient(response.reports.GroupBy(x => x.Cliente));
 
-            if (response.reports != null && response.reports.Count > 0)
-                GenerateHeader(model, response.reports);
+            //if (response.reports != null && response.reports.Count > 0)
+            //    GenerateHeader(model, response.reports);
 
             model.selectLisReportTypes = await db.TipoReporte.Where(x => (x.esFinanciero != null && x.esFinanciero == true && !x.descripcion.Contains("EPOC"))).Select(x => new SelectListItem
             {
@@ -61,7 +66,7 @@ namespace MaplePPTO.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Index(ParametroViewModel model)
+        public async Task<ActionResult> Index2(ParametroViewModel model)
         {
 
 
@@ -121,16 +126,15 @@ namespace MaplePPTO.Controllers
 
             try
             {
-                var response = await percistence.GetReports(model);
+                var response = await percistence.GetFinancialReports(model);
 
-                var data = DatatoString(response.reports, model.mesesFaltantesAnioBase);
-
+   
                 var jsonResult = Json(new
                 {
                     draw = 1,
-                    recordsTotal = data.Count,
-                    recordsFiltered = data.Count,
-                    data
+                    recordsTotal = response.resultFinanciero.Count,
+                    recordsFiltered = response.resultFinanciero.Count,
+                    data = response.resultFinanciero
                 }, JsonRequestBehavior.AllowGet);
                 jsonResult.MaxJsonLength = int.MaxValue;
 
@@ -260,6 +264,33 @@ namespace MaplePPTO.Controllers
             model.listHeader = columnsHeader;
             model.mesesFaltantesAnioBase = mesesFaltantesAnioBase;
         }
-
+        private void GenerateHeaderFinanciero(ParametroViewModel model)
+        {
+            var ppto = db.Ppto.Where(x => x.id == model.PresupuestoId).FirstOrDefault();
+            List<string> stringList = new List<string>();
+            foreach (int months in Enumerable.Range(0, 60))
+            {
+                DateTime dateTime;
+                if (months > 0 && months % 12 == 0)
+                {
+                    dateTime = new DateTime(ppto.AInicial, 1, 1);
+                    dateTime = dateTime.AddMonths(months - 1);
+                    string str = dateTime.ToString("yyyy").Replace(".", "");
+                    stringList.Add("Total " + str);
+                }
+                dateTime = new DateTime(ppto.AInicial, 1, 1);
+                dateTime = dateTime.AddMonths(months);
+                string str1 = dateTime.ToString("MMM-y").Replace(".", "");
+                stringList.Add(str1);
+                if (months == 59)
+                {
+                    dateTime = new DateTime(ppto.AInicial, 1, 1);
+                    dateTime = dateTime.AddMonths(months);
+                    string str2 = dateTime.ToString("yyyy").Replace(".", "");
+                    stringList.Add("Total " + str2);
+                }
+            }
+            model.listHeader = stringList;
+        }
     }
 }

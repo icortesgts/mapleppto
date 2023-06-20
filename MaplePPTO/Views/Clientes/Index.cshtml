@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MaplePPTO.Models.Cliente>
 
 
-<h1 class="m-0">Listado Clients</h1>
+<h2 class="m-0">CLIENT LIST</h2>
 <div class="card">
     @*<div class="card-header">
             <h3 class="card-title">DataTable with default features</h3>
@@ -11,7 +11,7 @@
         <p>
 
             <a href="@Url.Action("Create", "Clientes")">
-                <span>Create New </span>
+                <span>CREATE NEW </span>
                 <i class="fas fa-solid fa-plus"></i>
             </a>
         </p>
@@ -21,43 +21,41 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Nombre)
+                            NAME
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.tipo_persona)
+                            PERSON TYPE
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Tipo_ID)
+                            ID TYPE
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Identificacion)
+                            ID
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.DV)
+                            DV
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Direccion)
+                           ADDRESS
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Telfono)
+                            PHONE NUMBER
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.emailR)
+                            EMAIL
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Tipo)
+                            TYPE
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Prospecto)
+                            PROSPECT
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Bloqueado)
+                            LOCKED
                         </th>
-
                         <th>
-                            @Html.DisplayNameFor(model => model.Localizacion.coddpto)
+                            option
                         </th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,14 +92,20 @@
                                 @Html.DisplayFor(modelItem => item.Tipo)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Prospecto)
+                                @*@Html.DisplayFor(modelItem => item.Prospecto)*@
+                                @if (item.Prospecto != null && item.Prospecto == true)
+                                {<span>SI</span>}
+                                else
+                                {<span>NO</span>}
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Bloqueado)
+                                @*@Html.DisplayFor(modelItem => item.Bloqueado)*@
+                                @if (item.Prospecto != null && item.Prospecto == true)
+                                {<span>SI</span>}
+                                else
+                                {<span>NO</span>}
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Localizacion.coddpto)
-                            </td>
+  
                             <td>
                                 @*@Html.ActionLink("Edit", "Edit", new { id = item.id }) |
         @Html.ActionLink("Details", "Details", new { id = item.id }) |*@
@@ -199,10 +203,11 @@
                     });
 
                     $("#example2").DataTable({
-                        "responsive": true,
+                        "responsive": false,
                         "lengthChange": false,
                         "autoWidth": false,
-                        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                        "scrollX": true,
+                        "buttons": [ "csv", "excel"]
                     }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
 
                     $(document).on('click',".deleteFromList", function (event) {

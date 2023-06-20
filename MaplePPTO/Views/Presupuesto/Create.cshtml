@@ -28,7 +28,7 @@
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class = "control-label col-md-2">Name</label>
                             <div class="col-md-10">
                                 @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                                 @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
@@ -36,15 +36,15 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.AInicial, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">Initial Year</label>
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.AInicial, new { htmlAttributes = new { @class = "form-control", required = "required",min="2020" } })
+                                @Html.EditorFor(model => model.AInicial, new { htmlAttributes = new { @class = "form-control", required = "required", min = "2020" } })
                                 @Html.ValidationMessageFor(model => model.AInicial, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.AFinal, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">End Year</label>
                             <div class="col-md-10">
                                 @Html.EditorFor(model => model.AFinal, new { htmlAttributes = new { @class = "form-control", required = "required", min = "2020" } })
                                 @Html.ValidationMessageFor(model => model.AFinal, "", new { @class = "text-danger" })
@@ -65,7 +65,7 @@
             <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                 <form id="frmPptoEsc">
                     <div class="form-group">
-                        <label class="control-label col-md-2"> Presupuesto</label>
+                        <label class="control-label col-md-2"> Budget</label>
                         <div class="col-md-10">
                             @Html.DropDownListFor(model => model.id, Model.Ppto.Select(x => new SelectListItem
                        {
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-2"> Escenario</label>
+                        <label class="control-label col-md-2"> Escenery</label>
                         <div class="col-md-10">
                             @Html.DropDownListFor(model => model.EscenarioId, Model.Escenario.Select(x => new SelectListItem
                        {

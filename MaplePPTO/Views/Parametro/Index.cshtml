@@ -19,7 +19,7 @@
                         @Html.DropDownListFor(model => model.PresupuestoId, Model.selectListBudgets, new { @class = "form-control", @id = "ddlBudgets" })
                     </div>
                     <div class="col-md-6">
-                        <label>Escenarie</label>
+                        <label>Escenery</label>
                         @Html.DropDownListFor(model => model.EscenarioId, Model.selectListEscenaries, new { @class = "form-control", @id = "ddlEscenaries" })
                     </div>
                 </div>
@@ -434,8 +434,8 @@
                 Nombre: elementConcept.value,
                 ValorNum: (parseFloat(elementValue.value)/100),
                 id_cliente: elementClient.value,
-                id_ppto: ddlEscenaries.value,
-                id_escenario: ddlBudgets.value
+                id_ppto: ddlBudgets.value,
+                id_escenario: ddlEscenaries.value
             }
 
             let index = listToSave.findIndex(x => x.id_cliente == obj.id_cliente && x.Nombre == obj.Nombre);

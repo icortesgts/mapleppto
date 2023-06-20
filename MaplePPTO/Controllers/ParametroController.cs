@@ -30,7 +30,7 @@ namespace MaplePPTO.Controllers
 
             model.selectedClients = new long?[] { 1, 10, 11, 12, 13, 14 };
 
-            model.ParametroList = await db.Parametro.Select(x => new ParametroListViewModel
+            model.ParametroList = await db.Parametro.Take(1000).Select(x => new ParametroListViewModel
             {
                 parametroId = x.id,
                 parametroNombre = x.Nombre,
@@ -39,7 +39,7 @@ namespace MaplePPTO.Controllers
                 Cliente = x.Cliente.Nombre ?? "Otros",
             }).GroupBy(x => x.Cliente).ToListAsync();
 
-            model.listConceptParam = await db.Parametro.Select(x =>x.Nombre).Distinct().ToListAsync();
+            model.listConceptParam = await db.Parametro.Take(1000).Select(x =>x.Nombre).Distinct().ToListAsync();
 
         model.selectListBudgets = await db.Ppto.Select(x => new SelectListItem
             {
